@@ -1,1 +1,12 @@
-<p>ckeditor works!</p>
+
+<section class="bg-card w-full" >
+  <div class="max-w-7xl mx-auto prose shadow-md mt-6 rounded-md" >
+
+    <button mat-button (click)="changeText()" >Change Texto</button>
+    <button mat-flat-button (click)="inserText()" >Insert Texto</button>
+    <ckeditor  #editor [formControl]="dataCtrl" [editor]="Editor" ></ckeditor>
+  </div>
+
+  <!-- <div [innerHtml]="dataCtrl.value" class="ck-content prose">
+  </div> -->
+</section>

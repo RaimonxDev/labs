@@ -39,7 +39,7 @@ export const horizontalNavigation: FuseNavigationItem[] = [
                 id: 'ckeditor',
                 title: 'CKEditor',
                 type: 'basic',
-                icon: 'heroicons_outline:feather:edit',
+            icon: 'feather:edit',
                 link: '/ckeditor'
             }
         ]
