@@ -3,37 +3,45 @@ import { FuseNavigationItem } from '@fuse/components/navigation';
 
 export const defaultNavigation: FuseNavigationItem[] = [
     {
-        id   : 'example',
-        title: 'Example',
+        id: 'ckeditor',
+        title: 'CKEditor',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
-        link : '/example'
+        link: '/ckeditor'
     }
 ];
 export const compactNavigation: FuseNavigationItem[] = [
     {
-        id   : 'example',
-        title: 'Example',
-        type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
-        link : '/example'
+        id: 'ckeditor',
+        title: 'CKEditor',
+        type: 'basic',
+        icon: 'heroicons_outline:chart-pie',
+        link: '/ckeditor'
     }
 ];
 export const futuristicNavigation: FuseNavigationItem[] = [
     {
-        id   : 'example',
-        title: 'Example',
-        type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
-        link : '/example'
+        id: 'ckeditor',
+        title: 'CKEditor',
+        type: 'basic',
+        icon: 'heroicons_outline:chart-pie',
+        link: '/ckeditor'
     }
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [
     {
-        id   : 'example',
-        title: 'Example',
-        type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
-        link : '/example'
+        id: 'components',
+        title: 'Components',
+        type: 'collapsable',
+        icon: 'heroicons_outline:cube-transparent',
+        children: [
+            {
+                id: 'ckeditor',
+                title: 'CKEditor',
+                type: 'basic',
+                icon: 'heroicons_outline:feather:edit',
+                link: '/ckeditor'
+            }
+        ]
     }
 ];
