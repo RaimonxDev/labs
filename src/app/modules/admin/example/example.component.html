@@ -4,7 +4,16 @@
     <div class="flex-auto p-6 sm:p-10">
 
         <!-- CONTENT GOES HERE -->
-        <div class="h-400 min-h-400 max-h-400 border-2 border-dashed border-gray-300 rounded-2xl"></div>
+        <div class="h-400 min-h-400 max-h-400 border-2 border-dashed border-gray-300 rounded-2xl">
+
+          <button color="primary" mat-stroked-button (click)="changeState()" >change state</button>
+          <button color="accent" mat-stroked-button (click)="resetState()" >reset state 2</button>
+          <button color="warn" mat-stroked-button (click)="resetAllState()" >reset all state</button>
+
+
+
+
+        </div>
 
     </div>
 
