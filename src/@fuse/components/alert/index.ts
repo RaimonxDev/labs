@@ -1,1 +1,3 @@
-export * from '@fuse/components/alert/public-api';
+export * from './alert.component';
+export * from './alert.service';
+export * from './alert.types';

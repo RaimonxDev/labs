@@ -2,10 +2,11 @@ import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
 import { Directive, ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
-import { ScrollbarGeometry, ScrollbarPosition } from '@fuse/directives/scrollbar/scrollbar.types';
+
 import { merge } from 'lodash-es';
 import PerfectScrollbar from 'perfect-scrollbar';
 import { debounceTime, fromEvent, Subject, takeUntil } from 'rxjs';
+import { ScrollbarGeometry, ScrollbarPosition } from './scrollbar.types';
 
 /**
  * Wrapper directive for the Perfect Scrollbar: https://github.com/mdbootstrap/perfect-scrollbar

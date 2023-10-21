@@ -1,1 +1,2 @@
-export * from '@fuse/directives/scrollbar/public-api';
+export * from './scrollbar.directive';
+export * from './scrollbar.types';

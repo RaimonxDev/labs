@@ -9,7 +9,7 @@
     "target": "ES2022",
     "module": "ES2022",
     "lib": ["ES2022", "dom"],
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
       "@rx-labs": ["libs/state/src/index.ts"],
       "@rx-labs-ui": ["libs/ui/src/index.ts"]

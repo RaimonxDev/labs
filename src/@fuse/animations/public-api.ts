@@ -1,8 +1,9 @@
-import { expandCollapse } from '@fuse/animations/expand-collapse';
-import { fadeIn, fadeInBottom, fadeInLeft, fadeInRight, fadeInTop, fadeOut, fadeOutBottom, fadeOutLeft, fadeOutRight, fadeOutTop } from '@fuse/animations/fade';
-import { shake } from '@fuse/animations/shake';
-import { slideInBottom, slideInLeft, slideInRight, slideInTop, slideOutBottom, slideOutLeft, slideOutRight, slideOutTop } from '@fuse/animations/slide';
-import { zoomIn, zoomOut } from '@fuse/animations/zoom';
+import { expandCollapse } from "./expand-collapse";
+import { fadeIn, fadeInTop, fadeInBottom, fadeInLeft, fadeInRight, fadeOut, fadeOutTop, fadeOutBottom, fadeOutLeft, fadeOutRight } from "./fade";
+import { shake } from "./shake";
+import { slideInTop, slideInBottom, slideInLeft, slideInRight, slideOutTop, slideOutBottom, slideOutLeft, slideOutRight } from "./slide";
+import { zoomIn, zoomOut } from "./zoom";
+
 
 export const fuseAnimations = [
     expandCollapse,

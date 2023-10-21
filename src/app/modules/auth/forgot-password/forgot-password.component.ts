@@ -6,10 +6,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterLink } from '@angular/router';
-import { fuseAnimations } from '@fuse/animations';
-import { FuseAlertComponent, FuseAlertType } from '@fuse/components/alert';
-import { AuthService } from 'app/core/auth/auth.service';
+
 import { finalize } from 'rxjs';
+import { fuseAnimations } from 'src/@fuse/animations/public-api';
+import { FuseAlertComponent } from 'src/@fuse/components/alert/alert.component';
+import { FuseAlertType } from 'src/@fuse/components/alert/alert.types';
+import { AuthService } from 'src/app/core/auth/auth.service';
 
 @Component({
     selector     : 'auth-forgot-password',

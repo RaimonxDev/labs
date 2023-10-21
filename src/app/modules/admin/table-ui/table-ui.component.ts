@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RxLabsUiModule } from '@rx-labs-ui';
 
 @Component({
   selector: 'app-table-ui',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./table-ui.component.css'],
   standalone: true,
   imports: [
-
+    RxLabsUiModule
   ]
 })
 export class TableUiComponent implements OnInit {

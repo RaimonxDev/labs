@@ -4,12 +4,13 @@ import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { PreloadAllModules, provideRouter, withInMemoryScrolling, withPreloading } from '@angular/router';
-import { provideFuse } from '@fuse';
-import { appRoutes } from 'app/app.routes';
-import { provideAuth } from 'app/core/auth/auth.provider';
-import { provideIcons } from 'app/core/icons/icons.provider';
-import { provideTransloco } from 'app/core/transloco/transloco.provider';
-import { mockApiServices } from 'app/mock-api';
+
+import { appRoutes } from './app.routes';
+import { provideAuth } from './core/auth/auth.provider';
+import { provideIcons } from './core/icons/icons.provider';
+import { provideTransloco } from './core/transloco/transloco.provider';
+import { mockApiServices } from './mock-api';
+import { provideFuse } from 'src/@fuse';
 
 export const appConfig: ApplicationConfig = {
     providers: [

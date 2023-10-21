@@ -1,1 +1,2 @@
-export * from '@fuse/components/card/public-api';
+export * from './card.component';
+export * from './card.types';

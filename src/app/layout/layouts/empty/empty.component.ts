@@ -1,8 +1,9 @@
 import { NgIf } from '@angular/common';
 import { Component, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { FuseLoadingBarComponent } from '@fuse/components/loading-bar';
+
 import { Subject } from 'rxjs';
+import { FuseLoadingBarComponent } from 'src/@fuse/components/loading-bar/loading-bar.component';
 
 @Component({
     selector     : 'empty-layout',

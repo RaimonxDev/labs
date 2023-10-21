@@ -1,1 +1,2 @@
-export * from '@fuse/directives/scroll-reset/public-api';
+export * from './public-api';
+export * from './scroll-reset.directive';

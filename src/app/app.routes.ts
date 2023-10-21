@@ -1,8 +1,9 @@
 import { Route } from '@angular/router';
-import { initialDataResolver } from 'app/app.resolvers';
-import { AuthGuard } from 'app/core/auth/guards/auth.guard';
-import { NoAuthGuard } from 'app/core/auth/guards/noAuth.guard';
-import { LayoutComponent } from 'app/layout/layout.component';
+import { NoAuthGuard } from './core/auth/guards/noAuth.guard';
+import { LayoutComponent } from './layout/layout.component';
+import { AuthGuard } from './core/auth/guards/auth.guard';
+import { initialDataResolver } from './app.resolvers';
+
 
 // @formatter:off
 /* eslint-disable max-len */
@@ -29,11 +30,11 @@ export const appRoutes: Route[] = [
             layout: 'empty'
         },
         children: [
-            {path: 'confirmation-required', loadChildren: () => import('app/modules/auth/confirmation-required/confirmation-required.routes')},
-            {path: 'forgot-password', loadChildren: () => import('app/modules/auth/forgot-password/forgot-password.routes')},
-            {path: 'reset-password', loadChildren: () => import('app/modules/auth/reset-password/reset-password.routes')},
-            {path: 'sign-in', loadChildren: () => import('app/modules/auth/sign-in/sign-in.routes')},
-            {path: 'sign-up', loadChildren: () => import('app/modules/auth/sign-up/sign-up.routes')}
+          { path: 'confirmation-required', loadChildren: () => import('./modules/auth/confirmation-required/confirmation-required.routes') },
+          { path: 'forgot-password', loadChildren: () => import('./modules/auth/forgot-password/forgot-password.routes') },
+          { path: 'reset-password', loadChildren: () => import('./modules/auth/reset-password/reset-password.routes') },
+          { path: 'sign-in', loadChildren: () => import('./modules/auth/sign-in/sign-in.routes') },
+          { path: 'sign-up', loadChildren: () => import('./modules/auth/sign-up/sign-up.routes') }
         ]
     },
 
@@ -47,8 +48,8 @@ export const appRoutes: Route[] = [
             layout: 'empty'
         },
         children: [
-            {path: 'sign-out', loadChildren: () => import('app/modules/auth/sign-out/sign-out.routes')},
-            {path: 'unlock-session', loadChildren: () => import('app/modules/auth/unlock-session/unlock-session.routes')}
+          { path: 'sign-out', loadChildren: () => import('./modules/auth/sign-out/sign-out.routes') },
+          { path: 'unlock-session', loadChildren: () => import('./modules/auth/unlock-session/unlock-session.routes') }
         ]
     },
 
@@ -60,7 +61,7 @@ export const appRoutes: Route[] = [
             layout: 'empty'
         },
         children: [
-            {path: 'home', loadChildren: () => import('app/modules/landing/home/home.routes')},
+          { path: 'home', loadChildren: () => import('./modules/landing/home/home.routes') },
         ]
     },
 
@@ -74,7 +75,8 @@ export const appRoutes: Route[] = [
             initialData: initialDataResolver
         },
         children: [
-            {path: 'example', loadChildren: () => import('app/modules/admin/example/example.routes')},
+          { path: 'example', loadChildren: () => import('./modules/admin/example/example.routes') },
+          // {path: 'example', loadChildren: () => import('././modules/admin/example/example.routes')},
         ]
     }
 ];

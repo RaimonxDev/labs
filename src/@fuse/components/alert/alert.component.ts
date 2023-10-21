@@ -3,11 +3,12 @@ import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostBinding, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { fuseAnimations } from '@fuse/animations';
-import { FuseAlertService } from '@fuse/components/alert/alert.service';
-import { FuseAlertAppearance, FuseAlertType } from '@fuse/components/alert/alert.types';
-import { FuseUtilsService } from '@fuse/services/utils/utils.service';
+
 import { filter, Subject, takeUntil } from 'rxjs';
+import { fuseAnimations } from 'src/@fuse/animations/public-api';
+import { FuseAlertAppearance, FuseAlertType } from './alert.types';
+import { FuseAlertService } from './alert.service';
+import { FuseUtilsService } from 'src/@fuse/services/utils/utils.service';
 
 @Component({
     selector       : 'fuse-alert',
