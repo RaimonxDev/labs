@@ -2,7 +2,7 @@ import { NgIf } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { ActivatedRoute, Navigation, Router, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { FuseFullscreenComponent } from 'src/@fuse/components/fullscreen';
 import { FuseLoadingBarComponent } from 'src/@fuse/components/loading-bar';
 import { FuseHorizontalNavigationComponent, FuseNavigationService, FuseVerticalNavigationComponent } from 'src/@fuse/components/navigation';
@@ -16,6 +16,7 @@ import { NotificationsComponent } from 'src/app/layout/common/notifications/noti
 import { SearchComponent } from 'src/app/layout/common/search/search.component';
 import { ShortcutsComponent } from 'src/app/layout/common/shortcuts/shortcuts.component';
 import { UserComponent } from 'src/app/layout/common/user/user.component';
+import { Navigation } from 'src/app/core/navigation/navigation.types';
 
 @Component({
     selector     : 'material-layout',

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService, FuseMockApiUtils } from 'src/@fuse/lib/mock-api';
-import { filters as filtersData, folders as foldersData, labels as labelsData, mails as mailsData, settings as settingsData } from 'app/mock-api/apps/mailbox/data';
+import { filters as filtersData, folders as foldersData, labels as labelsData, mails as mailsData, settings as settingsData } from './data';
 import { assign, cloneDeep } from 'lodash-es';
 
 @Injectable({providedIn: 'root'})

@@ -1,4 +1,5 @@
-import { FuseNavigationItem } from 'src/@fuse/components/navigation';
+import { FuseNavigationItem } from "src/@fuse";
+
 
 export interface Navigation
 {

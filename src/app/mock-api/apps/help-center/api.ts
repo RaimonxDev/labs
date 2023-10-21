@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from 'src/@fuse/lib/mock-api';
-import { faqCategories as faqCategoriesData, faqs as faqsData, guideCategories as guideCategoriesData, guideContent as guideContentData, guides as guidesData } from 'app/mock-api/apps/help-center/data';
+import { faqCategories as faqCategoriesData, faqs as faqsData, guideCategories as guideCategoriesData, guideContent as guideContentData, guides as guidesData } from './data';
 import { cloneDeep } from 'lodash-es';
 
 @Injectable({providedIn: 'root'})

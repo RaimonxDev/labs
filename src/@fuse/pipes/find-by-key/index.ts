@@ -1,1 +1,2 @@
-export * from 'src/@fuse/pipes/find-by-key/public-api';
+export * from './find-by-key.pipe';
+export * from './public-api';
