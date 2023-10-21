@@ -1,0 +1,28 @@
+:host{
+  width: 100%;
+}
+
+cdk-row, cdk-header-row, cdk-footer-row {
+  display: flex;
+  /* padding: 0.75rem 0.5rem ; */
+}
+cdk-header-row {
+  @apply bg-sky-400 text-gray-900 rounded-tr-md rounded-tl-md font-medium
+}
+
+cdk-cell, cdk-header-cell, cdk-footer-cell {
+  flex: 1;
+  padding: 0.5rem 0.5rem;
+  border-right: 1px solid rgba(0, 0, 0, .25);
+}
+cdk-cell:last-child, cdk-header-cell:last-child, cdk-footer-cell:last-child {
+  border-right: none;
+}
+
+cdk-row:nth-child(even) {
+  @apply bg-gray-50;
+}
+
+.testing {
+  @apply bg-sky-400 text-gray-900 rounded-tr-md rounded-tl-md font-medium
+}

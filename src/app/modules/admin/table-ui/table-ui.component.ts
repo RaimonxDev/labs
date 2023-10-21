@@ -10,7 +10,7 @@ import { RxLabsUiModule } from '@rx-labs-ui';
     RxLabsUiModule
   ]
 })
-export class TableUiComponent implements OnInit {
+export default class TableUiComponent implements OnInit {
 
   constructor() { }
 
