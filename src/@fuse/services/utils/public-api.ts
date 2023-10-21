@@ -1,1 +1,1 @@
-export * from '@fuse/services/utils/utils.service';
+export * from 'src/@fuse/services/utils/utils.service';

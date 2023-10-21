@@ -1,8 +1,9 @@
 import { I18nPluralPipe, NgIf } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from 'app/core/auth/auth.service';
+
 import { finalize, Subject, takeUntil, takeWhile, tap, timer } from 'rxjs';
+import { AuthService } from 'src/app/core/auth/auth.service';
 
 @Component({
     selector     : 'auth-sign-out',

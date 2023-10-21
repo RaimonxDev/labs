@@ -3,15 +3,15 @@ import { APP_INITIALIZER, ENVIRONMENT_INITIALIZER, EnvironmentProviders, importP
 import { MATERIAL_SANITY_CHECKS } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { FUSE_MOCK_API_DEFAULT_DELAY, mockApiInterceptor } from '@fuse/lib/mock-api';
-import { FuseConfig } from '@fuse/services/config';
-import { FUSE_CONFIG } from '@fuse/services/config/config.constants';
-import { FuseConfirmationService } from '@fuse/services/confirmation';
-import { fuseLoadingInterceptor, FuseLoadingService } from '@fuse/services/loading';
-import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
-import { FusePlatformService } from '@fuse/services/platform';
-import { FuseSplashScreenService } from '@fuse/services/splash-screen';
-import { FuseUtilsService } from '@fuse/services/utils';
+import { FUSE_MOCK_API_DEFAULT_DELAY, mockApiInterceptor } from 'src/@fuse/lib/mock-api';
+import { FuseConfig } from 'src/@fuse/services/config';
+import { FUSE_CONFIG } from 'src/@fuse/services/config/config.constants';
+import { FuseConfirmationService } from 'src/@fuse/services/confirmation';
+import { fuseLoadingInterceptor, FuseLoadingService } from 'src/@fuse/services/loading';
+import { FuseMediaWatcherService } from 'src/@fuse/services/media-watcher';
+import { FusePlatformService } from 'src/@fuse/services/platform';
+import { FuseSplashScreenService } from 'src/@fuse/services/splash-screen';
+import { FuseUtilsService } from 'src/@fuse/services/utils';
 
 export type FuseProviderConfig = {
     mockApi?: {

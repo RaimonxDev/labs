@@ -1,23 +1,22 @@
-import { NgIf } from '@angular/common';
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { ActivatedRoute, Navigation, Router, RouterOutlet } from '@angular/router';
+import { NgIf } from "@angular/common";
+import { Component, ViewEncapsulation, OnInit, OnDestroy } from "@angular/core";
+import { MatButtonModule } from "@angular/material/button";
+import { MatIconModule } from "@angular/material/icon";
+import { RouterOutlet, Navigation, ActivatedRoute, Router } from "@angular/router";
+import { Subject, takeUntil } from "rxjs";
+import { FuseFullscreenComponent } from "src/@fuse/components/fullscreen";
+import { FuseLoadingBarComponent } from "src/@fuse/components/loading-bar";
+import { FuseVerticalNavigationComponent, FuseNavigationService } from "src/@fuse/components/navigation";
+import { FuseMediaWatcherService } from "src/@fuse/services/media-watcher";
+import { NavigationService } from "src/app/core/navigation/navigation.service";
+import { LanguagesComponent } from "src/app/layout/common/languages/languages.component";
+import { MessagesComponent } from "src/app/layout/common/messages/messages.component";
+import { NotificationsComponent } from "src/app/layout/common/notifications/notifications.component";
+import { QuickChatComponent } from "src/app/layout/common/quick-chat/quick-chat.component";
+import { SearchComponent } from "src/app/layout/common/search/search.component";
+import { ShortcutsComponent } from "src/app/layout/common/shortcuts/shortcuts.component";
+import { UserComponent } from "src/app/layout/common/user/user.component";
 
-import { Subject, takeUntil } from 'rxjs';
-import { FuseFullscreenComponent } from 'src/@fuse/components/fullscreen/fullscreen.component';
-import { FuseLoadingBarComponent } from 'src/@fuse/components/loading-bar/loading-bar.component';
-import { FuseNavigationService } from 'src/@fuse/components/navigation/navigation.service';
-import { FuseVerticalNavigationComponent } from 'src/@fuse/components/navigation/vertical/vertical.component';
-import { FuseMediaWatcherService } from 'src/@fuse/services/media-watcher/media-watcher.service';
-import { NavigationService } from 'src/app/core/navigation/navigation.service';
-import { LanguagesComponent } from 'src/app/layout/common/languages/languages.component';
-import { MessagesComponent } from 'src/app/layout/common/messages/messages.component';
-import { NotificationsComponent } from 'src/app/layout/common/notifications/notifications.component';
-import { QuickChatComponent } from 'src/app/layout/common/quick-chat/quick-chat.component';
-import { SearchComponent } from 'src/app/layout/common/search/search.component';
-import { ShortcutsComponent } from 'src/app/layout/common/shortcuts/shortcuts.component';
-import { UserComponent } from 'src/app/layout/common/user/user.component';
 
 @Component({
     selector     : 'dense-layout',

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { FuseNavigationItem, FuseNavigationService } from '@fuse/components/navigation';
-import { FuseMockApiService } from '@fuse/lib/mock-api';
+import { FuseNavigationItem, FuseNavigationService } from 'src/@fuse/components/navigation';
+import { FuseMockApiService } from 'src/@fuse/lib/mock-api';
 import { contacts } from 'app/mock-api/apps/contacts/data';
 import { tasks } from 'app/mock-api/apps/tasks/data';
 import { defaultNavigation } from 'app/mock-api/common/navigation/data';

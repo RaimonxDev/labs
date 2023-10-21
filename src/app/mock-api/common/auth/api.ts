@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { FuseMockApiService } from '@fuse/lib/mock-api';
-import { user as userData } from 'app/mock-api/common/user/data';
+import { FuseMockApiService } from 'src/@fuse/lib/mock-api';
+import { user as userData } from '../../common/user/data';
 import Base64 from 'crypto-js/enc-base64';
 import Utf8 from 'crypto-js/enc-utf8';
 import HmacSHA256 from 'crypto-js/hmac-sha256';

@@ -4,11 +4,11 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, Inpu
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenu, MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { FuseHorizontalNavigationBasicItemComponent } from '@fuse/components/navigation/horizontal/components/basic/basic.component';
-import { FuseHorizontalNavigationDividerItemComponent } from '@fuse/components/navigation/horizontal/components/divider/divider.component';
-import { FuseHorizontalNavigationComponent } from '@fuse/components/navigation/horizontal/horizontal.component';
-import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
-import { FuseNavigationItem } from '@fuse/components/navigation/navigation.types';
+import { FuseHorizontalNavigationBasicItemComponent } from 'src/@fuse/components/navigation/horizontal/components/basic/basic.component';
+import { FuseHorizontalNavigationDividerItemComponent } from 'src/@fuse/components/navigation/horizontal/components/divider/divider.component';
+import { FuseHorizontalNavigationComponent } from 'src/@fuse/components/navigation/horizontal/horizontal.component';
+import { FuseNavigationService } from 'src/@fuse/components/navigation/navigation.service';
+import { FuseNavigationItem } from 'src/@fuse/components/navigation/navigation.types';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({

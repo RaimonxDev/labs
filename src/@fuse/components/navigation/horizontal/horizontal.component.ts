@@ -1,9 +1,9 @@
 import { NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { fuseAnimations } from '@fuse/animations';
-import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
-import { FuseNavigationItem } from '@fuse/components/navigation/navigation.types';
-import { FuseUtilsService } from '@fuse/services/utils/utils.service';
+import { fuseAnimations } from 'src/@fuse/animations';
+import { FuseNavigationService } from 'src/@fuse/components/navigation/navigation.service';
+import { FuseNavigationItem } from 'src/@fuse/components/navigation/navigation.types';
+import { FuseUtilsService } from 'src/@fuse/services/utils/utils.service';
 import { ReplaySubject, Subject } from 'rxjs';
 import { FuseHorizontalNavigationBasicItemComponent } from './components/basic/basic.component';
 import { FuseHorizontalNavigationBranchItemComponent } from './components/branch/branch.component';

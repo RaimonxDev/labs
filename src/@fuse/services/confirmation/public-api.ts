@@ -1,2 +1,2 @@
-export * from '@fuse/services/confirmation/confirmation.service';
-export * from '@fuse/services/confirmation/confirmation.types';
+export * from 'src/@fuse/services/confirmation/confirmation.service';
+export * from 'src/@fuse/services/confirmation/confirmation.types';

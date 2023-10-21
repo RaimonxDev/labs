@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FuseDrawerComponent } from '@fuse/components/drawer/drawer.component';
+import { FuseDrawerComponent } from 'src/@fuse/components/drawer/drawer.component';
 
 @Injectable({providedIn: 'root'})
 export class FuseDrawerService

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
+import { FuseMockApiService } from 'src/@fuse/lib/mock-api/mock-api.service';
 import { items as itemsData } from 'app/mock-api/apps/file-manager/data';
 import { cloneDeep } from 'lodash-es';
 

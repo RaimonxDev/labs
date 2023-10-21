@@ -3,22 +3,23 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
-import { FuseFullscreenComponent } from '@fuse/components/fullscreen';
-import { FuseLoadingBarComponent } from '@fuse/components/loading-bar';
-import { FuseHorizontalNavigationComponent, FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
-import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
-import { NavigationService } from 'app/core/navigation/navigation.service';
-import { Navigation } from 'app/core/navigation/navigation.types';
-import { LanguagesComponent } from 'app/layout/common/languages/languages.component';
-import { MessagesComponent } from 'app/layout/common/messages/messages.component';
-import { NotificationsComponent } from 'app/layout/common/notifications/notifications.component';
-import { SearchComponent } from 'app/layout/common/search/search.component';
-import { ShortcutsComponent } from 'app/layout/common/shortcuts/shortcuts.component';
-import { UserComponent } from 'app/layout/common/user/user.component';
+import { FuseFullscreenComponent } from 'src/@fuse/components/fullscreen';
+import { FuseLoadingBarComponent } from 'src/@fuse/components/loading-bar';
+import { FuseHorizontalNavigationComponent, FuseNavigationService, FuseVerticalNavigationComponent } from 'src/@fuse/components/navigation';
+import { FuseMediaWatcherService } from 'src/@fuse/services/media-watcher';
+
 import { Subject, takeUntil } from 'rxjs';
+import { SearchComponent } from 'src/app/layout/common/search/search.component';
+import { ShortcutsComponent } from 'src/app/layout/common/shortcuts/shortcuts.component';
+import { Navigation } from 'src/app/core/navigation/navigation.types';
+import { NavigationService } from 'src/app/core/navigation/navigation.service';
+import { LanguagesComponent } from 'src/app/layout/common/languages/languages.component';
+import { MessagesComponent } from 'src/app/layout/common/messages/messages.component';
+import { NotificationsComponent } from 'src/app/layout/common/notifications/notifications.component';
+import { UserComponent } from 'src/app/layout/common/user/user.component';
 
 @Component({
-    selector     : 'centered-layout',
+  selector: 'centered-layout',
     templateUrl  : './centered.component.html',
     encapsulation: ViewEncapsulation.None,
     standalone   : true,

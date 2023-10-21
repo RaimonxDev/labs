@@ -1,6 +1,6 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { Injectable } from '@angular/core';
-import { FuseConfigService } from '@fuse/services/config';
+import { FuseConfigService } from 'src/@fuse/services/config';
 import { fromPairs } from 'lodash-es';
 import { map, Observable, ReplaySubject, switchMap } from 'rxjs';
 

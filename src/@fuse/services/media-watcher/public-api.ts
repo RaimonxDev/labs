@@ -1,1 +1,1 @@
-export * from '@fuse/services/media-watcher/media-watcher.service';
+export * from 'src/@fuse/services/media-watcher/media-watcher.service';

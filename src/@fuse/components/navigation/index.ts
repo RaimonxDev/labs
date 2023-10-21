@@ -1,1 +1,1 @@
-export * from '@fuse/components/navigation/public-api';
+export * from 'src/@fuse/components/navigation/public-api';

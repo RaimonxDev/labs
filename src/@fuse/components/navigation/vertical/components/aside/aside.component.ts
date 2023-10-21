@@ -4,14 +4,14 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NavigationEnd, Router } from '@angular/router';
-import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
-import { FuseNavigationItem } from '@fuse/components/navigation/navigation.types';
-import { FuseVerticalNavigationBasicItemComponent } from '@fuse/components/navigation/vertical/components/basic/basic.component';
-import { FuseVerticalNavigationCollapsableItemComponent } from '@fuse/components/navigation/vertical/components/collapsable/collapsable.component';
-import { FuseVerticalNavigationDividerItemComponent } from '@fuse/components/navigation/vertical/components/divider/divider.component';
-import { FuseVerticalNavigationGroupItemComponent } from '@fuse/components/navigation/vertical/components/group/group.component';
-import { FuseVerticalNavigationSpacerItemComponent } from '@fuse/components/navigation/vertical/components/spacer/spacer.component';
-import { FuseVerticalNavigationComponent } from '@fuse/components/navigation/vertical/vertical.component';
+import { FuseNavigationService } from 'src/@fuse/components/navigation/navigation.service';
+import { FuseNavigationItem } from 'src/@fuse/components/navigation/navigation.types';
+import { FuseVerticalNavigationBasicItemComponent } from 'src/@fuse/components/navigation/vertical/components/basic/basic.component';
+import { FuseVerticalNavigationCollapsableItemComponent } from 'src/@fuse/components/navigation/vertical/components/collapsable/collapsable.component';
+import { FuseVerticalNavigationDividerItemComponent } from 'src/@fuse/components/navigation/vertical/components/divider/divider.component';
+import { FuseVerticalNavigationGroupItemComponent } from 'src/@fuse/components/navigation/vertical/components/group/group.component';
+import { FuseVerticalNavigationSpacerItemComponent } from 'src/@fuse/components/navigation/vertical/components/spacer/spacer.component';
+import { FuseVerticalNavigationComponent } from 'src/@fuse/components/navigation/vertical/vertical.component';
 import { filter, Subject, takeUntil } from 'rxjs';
 
 @Component({

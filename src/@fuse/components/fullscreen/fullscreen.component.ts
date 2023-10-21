@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, Inject, Input, OnInit, TemplateRef,
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { FSDocument, FSDocumentElement } from '@fuse/components/fullscreen/fullscreen.types';
+import { FSDocument, FSDocumentElement } from 'src/@fuse/components/fullscreen/fullscreen.types';
 
 @Component({
     selector       : 'fuse-fullscreen',

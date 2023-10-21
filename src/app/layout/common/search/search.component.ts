@@ -10,7 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
-import { fuseAnimations } from '@fuse/animations/public-api';
+import { fuseAnimations } from 'src/@fuse/animations/public-api';
 import { debounceTime, filter, map, Subject, takeUntil } from 'rxjs';
 
 @Component({

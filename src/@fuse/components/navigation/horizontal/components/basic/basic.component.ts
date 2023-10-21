@@ -4,10 +4,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { IsActiveMatchOptions, RouterLink, RouterLinkActive } from '@angular/router';
-import { FuseHorizontalNavigationComponent } from '@fuse/components/navigation/horizontal/horizontal.component';
-import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
-import { FuseNavigationItem } from '@fuse/components/navigation/navigation.types';
-import { FuseUtilsService } from '@fuse/services/utils/utils.service';
+import { FuseHorizontalNavigationComponent } from 'src/@fuse/components/navigation/horizontal/horizontal.component';
+import { FuseNavigationService } from 'src/@fuse/components/navigation/navigation.service';
+import { FuseNavigationItem } from 'src/@fuse/components/navigation/navigation.types';
+import { FuseUtilsService } from 'src/@fuse/services/utils/utils.service';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({

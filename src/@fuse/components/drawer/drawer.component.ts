@@ -1,9 +1,9 @@
 import { animate, AnimationBuilder, AnimationPlayer, style } from '@angular/animations';
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnChanges, OnDestroy, OnInit, Output, Renderer2, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { FuseDrawerService } from '@fuse/components/drawer/drawer.service';
-import { FuseDrawerMode, FuseDrawerPosition } from '@fuse/components/drawer/drawer.types';
-import { FuseUtilsService } from '@fuse/services/utils/utils.service';
+import { FuseDrawerService } from 'src/@fuse/components/drawer/drawer.service';
+import { FuseDrawerMode, FuseDrawerPosition } from 'src/@fuse/components/drawer/drawer.types';
+import { FuseUtilsService } from 'src/@fuse/services/utils/utils.service';
 
 @Component({
     selector     : 'fuse-drawer',

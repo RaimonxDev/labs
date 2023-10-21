@@ -7,11 +7,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterLink } from '@angular/router';
-import { fuseAnimations } from '@fuse/animations';
-import { FuseAlertComponent, FuseAlertType } from '@fuse/components/alert';
-import { FuseValidators } from '@fuse/validators';
-import { AuthService } from 'app/core/auth/auth.service';
+import { fuseAnimations } from 'src/@fuse/animations';
+import { FuseAlertComponent, FuseAlertType } from 'src/@fuse/components/alert';
+import { FuseValidators } from 'src/@fuse/validators';
+
 import { finalize } from 'rxjs';
+import { AuthService } from 'src/app/core/auth/auth.service';
 
 @Component({
     selector     : 'auth-reset-password',

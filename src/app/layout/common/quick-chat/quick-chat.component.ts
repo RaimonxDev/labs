@@ -6,10 +6,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { FuseScrollbarDirective } from '@fuse/directives/scrollbar';
-import { QuickChatService } from 'app/layout/common/quick-chat/quick-chat.service';
-import { Chat } from 'app/layout/common/quick-chat/quick-chat.types';
+import { FuseScrollbarDirective } from 'src/@fuse/directives/scrollbar';
 import { Subject, takeUntil } from 'rxjs';
+import { QuickChatService } from './quick-chat.service';
+import { Chat } from './quick-chat.types';
 
 @Component({
     selector     : 'quick-chat',

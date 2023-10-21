@@ -3,10 +3,10 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { IsActiveMatchOptions, RouterLink, RouterLinkActive } from '@angular/router';
-import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
-import { FuseNavigationItem } from '@fuse/components/navigation/navigation.types';
-import { FuseVerticalNavigationComponent } from '@fuse/components/navigation/vertical/vertical.component';
-import { FuseUtilsService } from '@fuse/services/utils/utils.service';
+import { FuseNavigationService } from 'src/@fuse/components/navigation/navigation.service';
+import { FuseNavigationItem } from 'src/@fuse/components/navigation/navigation.types';
+import { FuseVerticalNavigationComponent } from 'src/@fuse/components/navigation/vertical/vertical.component';
+import { FuseUtilsService } from 'src/@fuse/services/utils/utils.service';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({

@@ -1,8 +1,8 @@
 import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
-import { FuseNavigationItem } from '@fuse/components/navigation/navigation.types';
-import { FuseVerticalNavigationComponent } from '@fuse/components/navigation/vertical/vertical.component';
+import { FuseNavigationService } from 'src/@fuse/components/navigation/navigation.service';
+import { FuseNavigationItem } from 'src/@fuse/components/navigation/navigation.types';
+import { FuseVerticalNavigationComponent } from 'src/@fuse/components/navigation/vertical/vertical.component';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({

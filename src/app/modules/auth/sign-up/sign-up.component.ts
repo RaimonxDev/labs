@@ -8,9 +8,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Router, RouterLink } from '@angular/router';
-import { fuseAnimations } from '@fuse/animations';
-import { FuseAlertComponent, FuseAlertType } from '@fuse/components/alert';
-import { AuthService } from 'app/core/auth/auth.service';
+import { fuseAnimations } from 'src/@fuse/animations';
+import { FuseAlertComponent, FuseAlertType } from 'src/@fuse/components/alert';
+import { AuthService } from 'src/app/core/auth/auth.service';
+
 
 @Component({
     selector     : 'auth-sign-up',

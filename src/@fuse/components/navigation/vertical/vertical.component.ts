@@ -4,17 +4,17 @@ import { ScrollStrategy, ScrollStrategyOptions } from '@angular/cdk/overlay';
 import { DOCUMENT, NgFor, NgIf } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, HostListener, Inject, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, Renderer2, SimpleChanges, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { fuseAnimations } from '@fuse/animations';
-import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
-import { FuseNavigationItem, FuseVerticalNavigationAppearance, FuseVerticalNavigationMode, FuseVerticalNavigationPosition } from '@fuse/components/navigation/navigation.types';
-import { FuseVerticalNavigationAsideItemComponent } from '@fuse/components/navigation/vertical/components/aside/aside.component';
-import { FuseVerticalNavigationBasicItemComponent } from '@fuse/components/navigation/vertical/components/basic/basic.component';
-import { FuseVerticalNavigationCollapsableItemComponent } from '@fuse/components/navigation/vertical/components/collapsable/collapsable.component';
-import { FuseVerticalNavigationDividerItemComponent } from '@fuse/components/navigation/vertical/components/divider/divider.component';
-import { FuseVerticalNavigationGroupItemComponent } from '@fuse/components/navigation/vertical/components/group/group.component';
-import { FuseVerticalNavigationSpacerItemComponent } from '@fuse/components/navigation/vertical/components/spacer/spacer.component';
-import { FuseScrollbarDirective } from '@fuse/directives/scrollbar/scrollbar.directive';
-import { FuseUtilsService } from '@fuse/services/utils/utils.service';
+import { fuseAnimations } from 'src/@fuse/animations';
+import { FuseNavigationService } from 'src/@fuse/components/navigation/navigation.service';
+import { FuseNavigationItem, FuseVerticalNavigationAppearance, FuseVerticalNavigationMode, FuseVerticalNavigationPosition } from 'src/@fuse/components/navigation/navigation.types';
+import { FuseVerticalNavigationAsideItemComponent } from 'src/@fuse/components/navigation/vertical/components/aside/aside.component';
+import { FuseVerticalNavigationBasicItemComponent } from 'src/@fuse/components/navigation/vertical/components/basic/basic.component';
+import { FuseVerticalNavigationCollapsableItemComponent } from 'src/@fuse/components/navigation/vertical/components/collapsable/collapsable.component';
+import { FuseVerticalNavigationDividerItemComponent } from 'src/@fuse/components/navigation/vertical/components/divider/divider.component';
+import { FuseVerticalNavigationGroupItemComponent } from 'src/@fuse/components/navigation/vertical/components/group/group.component';
+import { FuseVerticalNavigationSpacerItemComponent } from 'src/@fuse/components/navigation/vertical/components/spacer/spacer.component';
+import { FuseScrollbarDirective } from 'src/@fuse/directives/scrollbar/scrollbar.directive';
+import { FuseUtilsService } from 'src/@fuse/services/utils/utils.service';
 import { delay, filter, merge, ReplaySubject, Subject, Subscription, takeUntil } from 'rxjs';
 
 @Component({

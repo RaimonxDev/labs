@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { FUSE_CONFIG } from '@fuse/services/config/config.constants';
+import { FUSE_CONFIG } from 'src/@fuse/services/config/config.constants';
 import { merge } from 'lodash-es';
 import { BehaviorSubject, Observable } from 'rxjs';
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { FuseMockApiHandler } from '@fuse/lib/mock-api/mock-api.request-handler';
-import { FuseMockApiMethods } from '@fuse/lib/mock-api/mock-api.types';
+import { FuseMockApiHandler } from 'src/@fuse/lib/mock-api/mock-api.request-handler';
+import { FuseMockApiMethods } from 'src/@fuse/lib/mock-api/mock-api.types';
 import { compact, fromPairs } from 'lodash-es';
 
 @Injectable({providedIn: 'root'})

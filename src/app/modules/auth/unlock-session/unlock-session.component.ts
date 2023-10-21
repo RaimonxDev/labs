@@ -7,10 +7,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { fuseAnimations } from '@fuse/animations';
-import { FuseAlertComponent, FuseAlertType } from '@fuse/components/alert';
-import { AuthService } from 'app/core/auth/auth.service';
-import { UserService } from 'app/core/user/user.service';
+import { fuseAnimations } from 'src/@fuse/animations';
+import { FuseAlertComponent, FuseAlertType } from 'src/@fuse/components/alert';
+import { AuthService } from 'src/app/core/auth/auth.service';
+import { UserService } from 'src/app/core/user/user.service';
+
 
 @Component({
     selector     : 'auth-unlock-session',

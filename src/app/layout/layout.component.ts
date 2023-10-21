@@ -1,10 +1,10 @@
 import { DOCUMENT, NgIf } from '@angular/common';
 import { Component, Inject, OnDestroy, OnInit, Renderer2, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { FuseConfig, FuseConfigService } from '@fuse/services/config';
-import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
-import { FusePlatformService } from '@fuse/services/platform';
-import { FUSE_VERSION } from '@fuse/version';
+import { FuseConfig, FuseConfigService } from 'src/@fuse/services/config';
+import { FuseMediaWatcherService } from 'src/@fuse/services/media-watcher';
+import { FusePlatformService } from 'src/@fuse/services/platform';
+import { FUSE_VERSION } from 'src/@fuse/version';
 import { combineLatest, filter, map, Subject, takeUntil } from 'rxjs';
 import { SettingsComponent } from './common/settings/settings.component';
 import { EmptyLayoutComponent } from './layouts/empty/empty.component';

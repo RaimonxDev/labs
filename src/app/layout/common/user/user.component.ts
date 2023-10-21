@@ -6,9 +6,10 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { Router } from '@angular/router';
-import { UserService } from 'app/core/user/user.service';
-import { User } from 'app/core/user/user.types';
+
 import { Subject, takeUntil } from 'rxjs';
+import { UserService } from 'src/app/core/user/user.service';
+import { User } from 'src/app/core/user/user.types';
 
 @Component({
     selector       : 'user',

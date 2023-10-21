@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FuseNavigationItem } from '@fuse/components/navigation/navigation.types';
+import { FuseNavigationItem } from 'src/@fuse/components/navigation/navigation.types';
 
 @Injectable({providedIn: 'root'})
 export class FuseNavigationService

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
-import { FuseMockApiUtils } from '@fuse/lib/mock-api/mock-api.utils';
+import { FuseMockApiService } from 'src/@fuse/lib/mock-api/mock-api.service';
+import { FuseMockApiUtils } from 'src/@fuse/lib/mock-api/mock-api.utils';
 import { tags as tagsData, tasks as tasksData } from 'app/mock-api/apps/tasks/data';
 import { assign, cloneDeep } from 'lodash-es';
 
