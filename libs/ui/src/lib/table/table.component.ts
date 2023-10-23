@@ -24,9 +24,9 @@ export interface PeriodicElement {
 
 const configTable: TableConfig[] = [
   {
-    columnDef: 'id',
-    header: 'No.',
-    type: 'number',
+    columnDef: 'name',
+    header: 'Name',
+    type: 'text',
     isSortable: true,
     isFilterable: true,
     isEditable: true,
@@ -35,9 +35,9 @@ const configTable: TableConfig[] = [
     cell: (element: PeriodicElement) => `${element.position}`,
   },
   {
-    columnDef: 'name',
-    header: 'Name',
-    type: 'text',
+    columnDef: 'id',
+    header: 'No.',
+    type: 'number',
     isSortable: true,
     isFilterable: true,
     isEditable: true,
