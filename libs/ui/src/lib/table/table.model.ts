@@ -12,4 +12,4 @@ export interface TableConfig {
   isDisabled?: boolean;
 }
 
-type ColumnType = 'text' | 'number' | 'currency' | 'date'
+type ColumnType = 'text' | 'number' | 'currency' | 'date' | 'boolean' | 'actions' | 'checkbox' | 'templateRef' | 'radio';

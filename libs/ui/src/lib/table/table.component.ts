@@ -1,5 +1,5 @@
-import { DataSource } from '@angular/cdk/collections';
-import { Component, OnInit } from '@angular/core';
+import { DataSource, SelectionModel } from '@angular/cdk/collections';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { TableConfig } from './table.model';
 export interface PeriodicElement {
@@ -77,13 +77,54 @@ export class TableComponent implements OnInit {
   dataSource = new ExampleDataSource();
   configTableExample = configTable;
   displayedColumns = this.configTableExample.map((c) => c.columnDef);
+  actionsExample = ['edit', 'delete'];
+  allColumns: string[] = [];
+
+  @Output() actionClicked: EventEmitter<{ action: string, row: any }> = new EventEmitter();
+
+  @Output() rowSelected: EventEmitter<any> = new EventEmitter();
+
+  @Output() rowsSelecteds = new EventEmitter<any[]>();
+
+  /**
+   * @description Define si la tabla permite seleccionar multiples filas
+   */
+  _isMultipleSelection = false;
+  @Input()
+  set isMultipleSelection(value: boolean) {
+    this._isMultipleSelection = value;
+  }
+  get isMultipleSelection(): boolean { return this._isMultipleSelection; }
+
+  _selections = new SelectionModel<any>(this.isMultipleSelection, []);
 
   data = dataExample;
 
-
-
   ngOnInit(): void {
+    this.allColumns = this.concatColumns();
+  }
 
+  concatColumns() {
+    let _columns: string[] = []
+    if (this.configTableExample.find(c => c.type === 'actions')) {
+      _columns = [...this.actionsExample]
+    }
+    if (this.configTableExample.find(c => c.type === 'checkbox')) {
+      _columns = [..._columns, 'radio']
+
+      if (this.isMultipleSelection) {
+        _columns = [..._columns, 'select']
+      }
+    }
+    return [...this.displayedColumns, ..._columns]
+  }
+
+  handleActionClick(action: string, row: any) {
+    this.actionClicked.emit({ action, row });
+  }
+
+  selectRow(row: any) {
+    this.rowSelected.emit(row);
   }
 
 
