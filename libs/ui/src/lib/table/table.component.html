@@ -1,8 +1,11 @@
-<cdk-table [dataSource]="dataSource" fixedLayout>
+<div class="container-table">
+
+
+<cdk-table [dataSource]="dataSource">
 
   <!-- action columns -->
-  <ng-container [cdkColumnDef]="'actions'">
-    <cdk-header-cell *cdkHeaderCellDef> </cdk-header-cell>
+  <ng-container [sticky]="true" [cdkColumnDef]="'actions'">
+    <cdk-header-cell  *cdkHeaderCellDef> </cdk-header-cell>
     <cdk-cell class="flex justify-center items-center" *cdkCellDef="let row">
       <button mat-icon-button [matMenuTriggerFor]="menu" [matMenuTriggerData]="{row}" aria-label="action">
         <mat-icon>more_vert</mat-icon>
@@ -12,33 +15,38 @@
 
   <!-- Columns -->
   <ng-container *ngFor="let item of displayedColumns; let i= index" >
-    <ng-container [cdkColumnDef]="item">
+    <ng-container [sticky]="configTableExample[i].sticky" [cdkColumnDef]="item">
       <!-- obtener el header de la columna desde configTableExample -->
       <cdk-header-cell
-
-        [ngStyle]="{'flex': configTableExample[i].width }"
-        *cdkHeaderCellDef> {{configTableExample[i].header}}
+        [ngStyle]="{
+          'min-width': configTableExample[i].width,
+      }"
+        *cdkHeaderCellDef>
+        <span class="column-content">
+          {{configTableExample[i].header}}
+        </span>
       </cdk-header-cell>
 
       <!-- obtener el tipo de dato de la columna desde configTableExample -->
       <ng-container *ngIf="configTableExample[i].type === 'date'" >
-        <cdk-cell [ngStyle]="{'flex': configTableExample[i].width }" (click)="configTableExample[i].cell?.(element)"
-          class="" *cdkCellDef="let element">
-          <span class="flex items-center justify-end"> {{element[item] | date: configTableExample[i].formatDate }} </span> </cdk-cell>
+        <cdk-cell [ngStyle]="{'min-width': configTableExample[i].width }"
+          (click)="configTableExample[i].cell?.(element)"
+          *cdkCellDef="let element">
+          <span class="column-content"> {{element[item] | date: configTableExample[i].formatDate }} </span> </cdk-cell>
       </ng-container>
 
       <ng-container *ngIf="configTableExample[i].type === 'number'" >
-        <cdk-cell [ngStyle]="{'flex': configTableExample[i].width }"
+        <cdk-cell [ngStyle]="{'min-width': configTableExample[i].width }"
         class=" text-gray-800 flex items-center" *cdkCellDef="let element">  {{element[item] | currency: 'CLP': '' }} </cdk-cell>
       </ng-container>
 
       <ng-container *ngIf="configTableExample[i].type === 'currency'" >
-        <cdk-cell [ngStyle]="{'flex': configTableExample[i].width }"
+        <cdk-cell [ngStyle]="{'min-width': configTableExample[i].width }"
         class="text-gray-800 flex items-center"  *cdkCellDef="let element"> {{element[item]}} </cdk-cell>
       </ng-container>
 
       <ng-container *ngIf="configTableExample[i].type === 'text'" >
-        <cdk-cell [ngStyle]="{'flex': configTableExample[i].width }" class="flex items-center justify-end" *cdkCellDef="let element"> {{element[item]}} </cdk-cell>
+        <cdk-cell [ngStyle]="{'min-width': configTableExample[i].width }" class="flex items-center justify-end" *cdkCellDef="let element"> {{element[item]}} </cdk-cell>
       </ng-container>
     </ng-container>
   </ng-container>
@@ -65,9 +73,11 @@
 
   <!-- checkbox column -->
 
-  <cdk-header-row *cdkHeaderRowDef="allColumns"></cdk-header-row>
-  <cdk-row class="w-full" *cdkRowDef="let row; columns: allColumns;"></cdk-row>
+  <cdk-header-row *cdkHeaderRowDef="allColumns; sticky:true "></cdk-header-row>
+  <cdk-row *cdkRowDef="let row; columns: allColumns;"></cdk-row>
 </cdk-table>
+
+</div>
 
 
 <mat-menu #menu="matMenu">

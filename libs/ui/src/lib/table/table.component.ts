@@ -8,7 +8,7 @@ const configTable: TableConfig[] = [
     columnDef: 'id',
     header: 'id atencion',
     type: 'number',
-    width: '0 0 200px',
+    width: '200px',
     sticky: true,
     cell: (element: any) => `${element.header}`,
   },
@@ -16,7 +16,7 @@ const configTable: TableConfig[] = [
     columnDef: 'name',
     header: 'Name',
     type: 'text',
-    width: '0 0 200px',
+    width: '100px',
     cell: (element: any) => `${element.header}`,
   },
   {
@@ -24,30 +24,30 @@ const configTable: TableConfig[] = [
     header: 'Fecha de Inicio',
     type: 'date',
     formatDate: 'shortDate',
-    width: '0 0 200px',
+    width: '150px',
     sticky: true,
     cell: (element: any) => console.log(element, 'element'),
   },
   {
-    columnDef: 'id2',
-    header: 'id atencion',
+    columnDef: 'paciente',
+    header: 'Paciente',
     type: 'number',
-    width: '0 0 200px',
+    width: '200px',
     cell: (element: any) => `${element.header}`,
   },
   {
-    columnDef: 'name2',
-    header: 'Name',
+    columnDef: 'apePaciente',
+    header: 'Apellido Paciente',
     type: 'text',
-    width: '0 0 200px',
+    width: '200px',
     cell: (element: any) => `${element.header}`,
   },
   {
-    columnDef: 'fecha2',
+    columnDef: 'edad',
     header: 'Fecha de Inicio',
     type: 'date',
     formatDate: 'shortDate',
-    width: '0 0 200px',
+    width: '200px',
     cell: (element: any) => console.log(element, 'element'),
   }
 ]
@@ -113,7 +113,6 @@ export class TableComponent implements OnInit {
         _columns = [..._columns, 'select']
       }
     }
-    console.log(_columns, 'columns')
     return [..._columns, ...this.displayedColumns,]
   }
 
@@ -124,6 +123,10 @@ export class TableComponent implements OnInit {
 
   selectRow(row: any) {
     this.rowSelected.emit(row);
+  }
+
+  isEvenRow(index: number) {
+    return index % 2 === 0;
   }
 
 
