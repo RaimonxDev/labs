@@ -1,43 +1,52 @@
-<cdk-table [dataSource]="dataSource">
+<cdk-table [dataSource]="dataSource" fixedLayout>
+
+  <!-- action columns -->
+  <ng-container [cdkColumnDef]="'actions'">
+    <cdk-header-cell *cdkHeaderCellDef> </cdk-header-cell>
+    <cdk-cell class="flex justify-center items-center" *cdkCellDef="let row">
+      <button mat-icon-button [matMenuTriggerFor]="menu" [matMenuTriggerData]="{row}" aria-label="action">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    </cdk-cell>
+  </ng-container>
+
   <!-- Columns -->
   <ng-container *ngFor="let item of displayedColumns; let i= index" >
     <ng-container [cdkColumnDef]="item">
       <!-- obtener el header de la columna desde configTableExample -->
-      <cdk-header-cell *cdkHeaderCellDef> {{configTableExample[i].header}} </cdk-header-cell>
+      <cdk-header-cell
+
+        [ngStyle]="{'flex': configTableExample[i].width }"
+        *cdkHeaderCellDef> {{configTableExample[i].header}}
+      </cdk-header-cell>
 
       <!-- obtener el tipo de dato de la columna desde configTableExample -->
       <ng-container *ngIf="configTableExample[i].type === 'date'" >
-        <cdk-cell class="text-right texte-gray-600" *cdkCellDef="let element">
-          {{element[item] | date: configTableExample[i].formatDate }} </cdk-cell>
+        <cdk-cell [ngStyle]="{'flex': configTableExample[i].width }" (click)="configTableExample[i].cell?.(element)"
+          class="" *cdkCellDef="let element">
+          <span class="flex items-center justify-end"> {{element[item] | date: configTableExample[i].formatDate }} </span> </cdk-cell>
       </ng-container>
 
       <ng-container *ngIf="configTableExample[i].type === 'number'" >
-        <cdk-cell class="text-left text-gray-800" *cdkCellDef="let element"> {{element[item] | currency: 'CLP': '' }} </cdk-cell>
+        <cdk-cell [ngStyle]="{'flex': configTableExample[i].width }"
+        class=" text-gray-800 flex items-center" *cdkCellDef="let element">  {{element[item] | currency: 'CLP': '' }} </cdk-cell>
       </ng-container>
 
       <ng-container *ngIf="configTableExample[i].type === 'currency'" >
-        <cdk-cell class="text-left text-gray-800" *cdkCellDef="let element"> {{element[item]}} </cdk-cell>
+        <cdk-cell [ngStyle]="{'flex': configTableExample[i].width }"
+        class="text-gray-800 flex items-center"  *cdkCellDef="let element"> {{element[item]}} </cdk-cell>
       </ng-container>
 
       <ng-container *ngIf="configTableExample[i].type === 'text'" >
-        <cdk-cell class="text-right  texte-gray-600" *cdkCellDef="let element"> {{element[item]}} </cdk-cell>
+        <cdk-cell [ngStyle]="{'flex': configTableExample[i].width }" class="flex items-center justify-end" *cdkCellDef="let element"> {{element[item]}} </cdk-cell>
       </ng-container>
     </ng-container>
   </ng-container>
 
-  <!-- action columns -->
-  <ng-container [cdkColumnDef]="'action'">
-    <cdk-header-cell *cdkHeaderCellDef> Acciones </cdk-header-cell>
-    <cdk-cell *cdkCellDef="let row">
-      <button *ngFor="let action of actionsExample" (click)="handleActionClick(action, row)">
-        {{ action }}
-      </button>
-    </cdk-cell>
-  </ng-container>
 
   <!-- radio columns -->
   <ng-container [cdkColumnDef]="'checkbox'">
-    <cdk-header-cell *cdkHeaderCellDef> Acciones </cdk-header-cell>
+    <cdk-header-cell *cdkHeaderCellDef> Checkek </cdk-header-cell>
     <cdk-cell *cdkCellDef="let row">
       <button *ngFor="let action of actionsExample" (click)="handleActionClick(action, row)">
         {{ action }}
@@ -47,8 +56,8 @@
 
 
   <!-- radio columns -->
-  <ng-container [cdkColumnDef]="'action'">
-    <cdk-header-cell *cdkHeaderCellDef> Acciones </cdk-header-cell>
+  <ng-container [cdkColumnDef]="'radio'">
+    <!-- <cdk-header-cell *cdkHeaderCellDef> Acciones </cdk-header-cell> -->
     <cdk-cell *cdkCellDef="let row">
         <input type="radio" [value]="row" name="selectRow" (change)="selectRow(row)">
     </cdk-cell>
@@ -56,7 +65,19 @@
 
   <!-- checkbox column -->
 
-
   <cdk-header-row *cdkHeaderRowDef="allColumns"></cdk-header-row>
-  <cdk-row [class.testing]="row.position === 2" class="w-full" *cdkRowDef="let row; columns: allColumns;"></cdk-row>
+  <cdk-row class="w-full" *cdkRowDef="let row; columns: allColumns;"></cdk-row>
 </cdk-table>
+
+
+<mat-menu #menu="matMenu">
+
+  <ng-template matMenuContent let-row="row">
+    <button *ngFor="let item of actionsExample"
+    (click)="handleActionClick(item, row)"
+    mat-menu-item >
+    {{item | titlecase }}
+    </button>
+  </ng-template>
+
+</mat-menu>
