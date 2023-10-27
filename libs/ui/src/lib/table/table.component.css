@@ -1,6 +1,6 @@
 .container-table {
   overflow:auto;
-  max-width: 1280px;
+  max-width: 1280px
 }
 cdk-table {
   display: table;

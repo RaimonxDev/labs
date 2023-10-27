@@ -1,13 +1,19 @@
 <div class="container-table">
 
+  <button mat-button [matMenuTriggerFor]="showColumns" >Columnas</button>
 
-<cdk-table [dataSource]="dataSource">
+  <cdk-table [dataSource]="dataSource">
 
   <!-- action columns -->
   <ng-container [sticky]="true" [cdkColumnDef]="'actions'">
     <cdk-header-cell  *cdkHeaderCellDef> </cdk-header-cell>
     <cdk-cell class="flex justify-center items-center" *cdkCellDef="let row">
-      <button mat-icon-button [matMenuTriggerFor]="menu" [matMenuTriggerData]="{row}" aria-label="action">
+      <button
+       *ngIf="
+       (_selections.isSelected(row) && hideActionsOfUnselectedElement)
+       ||(!_selections.hasValue() || isMultipleSelection )
+       || (hideActionsOfUnselectedElement === false )"
+      mat-icon-button [matMenuTriggerFor]="menu" [matMenuTriggerData]="{row}" aria-label="action">
         <mat-icon>more_vert</mat-icon>
       </button>
     </cdk-cell>
@@ -20,10 +26,11 @@
       <cdk-header-cell
         [ngStyle]="{
           'min-width': configTableExample[i].width,
+          'display' : configTableExample[i].isHidden ? 'none' : 'table-cell'
       }"
         *cdkHeaderCellDef>
         <span class="column-content">
-          {{configTableExample[i].header}}
+          {{configTableExample[i].header}} - {{configTableExample[i].isHidden}}
         </span>
       </cdk-header-cell>
 
@@ -37,16 +44,28 @@
 
       <ng-container *ngIf="configTableExample[i].type === 'number'" >
         <cdk-cell [ngStyle]="{'min-width': configTableExample[i].width }"
-        class=" text-gray-800 flex items-center" *cdkCellDef="let element">  {{element[item] | currency: 'CLP': '' }} </cdk-cell>
+        class=" text-gray-800 flex items-center" *cdkCellDef="let element">
+        <span class="column-content">
+          {{element[item] | currency: 'CLP': '' }}
+        </span>
+        </cdk-cell>
       </ng-container>
 
       <ng-container *ngIf="configTableExample[i].type === 'currency'" >
         <cdk-cell [ngStyle]="{'min-width': configTableExample[i].width }"
-        class="text-gray-800 flex items-center"  *cdkCellDef="let element"> {{element[item]}} </cdk-cell>
+        class="text-gray-800 flex items-center"  *cdkCellDef="let element">
+         <span class="column-content">
+           {{element[item] | currency: 'CLP': '' }}
+         </span>
+       </cdk-cell>
       </ng-container>
 
       <ng-container *ngIf="configTableExample[i].type === 'text'" >
-        <cdk-cell [ngStyle]="{'min-width': configTableExample[i].width }" class="flex items-center justify-end" *cdkCellDef="let element"> {{element[item]}} </cdk-cell>
+        <cdk-cell [ngStyle]="{'min-width': configTableExample[i].width }" class="flex items-center justify-end" *cdkCellDef="let element">
+          <span class="column-content">
+            {{element[item]}}
+          </span>
+        </cdk-cell>
       </ng-container>
     </ng-container>
   </ng-container>
@@ -54,11 +73,11 @@
 
   <!-- radio columns -->
   <ng-container [cdkColumnDef]="'checkbox'">
-    <cdk-header-cell *cdkHeaderCellDef> Checkek </cdk-header-cell>
+    <cdk-header-cell *cdkHeaderCellDef></cdk-header-cell>
     <cdk-cell *cdkCellDef="let row">
-      <button *ngFor="let action of actionsExample" (click)="handleActionClick(action, row)">
-        {{ action }}
-      </button>
+      <mat-checkbox
+      [disabled]="!isMultipleSelection && _selections.hasValue() && !_selections.isSelected(row)"
+      [checked]="_selections.isSelected(row)" (change)="selectRow(row)"></mat-checkbox>
     </cdk-cell>
   </ng-container>
 
@@ -75,9 +94,19 @@
 
   <cdk-header-row *cdkHeaderRowDef="allColumns; sticky:true "></cdk-header-row>
   <cdk-row *cdkRowDef="let row; columns: allColumns;"></cdk-row>
-</cdk-table>
-
+  </cdk-table>
 </div>
+
+
+<mat-menu #showColumns="matMenu">
+  <ng-template matMenuContent let-row="row">
+    <mat-checkbox *ngFor="let item of displayedColumnsHeader"
+      [checked]="_selectionsColumnsDisplayed.isSelected(item.columnDef)"
+      (change)="handleShowColumnClick(item.columnDef)"> {{item.header}} </mat-checkbox>
+  </ng-template>
+
+</mat-menu>
+
 
 
 <mat-menu #menu="matMenu">
