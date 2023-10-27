@@ -9,6 +9,7 @@ const configTable: TableConfig[] = [
     header: 'id atencion',
     type: 'number',
     width: '0 0 200px',
+    sticky: true,
     cell: (element: any) => `${element.header}`,
   },
   {
@@ -24,6 +25,7 @@ const configTable: TableConfig[] = [
     type: 'date',
     formatDate: 'shortDate',
     width: '0 0 200px',
+    sticky: true,
     cell: (element: any) => console.log(element, 'element'),
   },
   {

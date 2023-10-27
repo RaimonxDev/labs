@@ -10,7 +10,8 @@ export interface TableConfig {
   isEditable?: boolean;
   isHidden?: boolean;
   isDisabled?: boolean;
-  width?: string
+  width?: string;
+  sticky?: boolean;
 }
 
 type ColumnType = 'text' | 'number' | 'currency' | 'date' | 'boolean' | 'actions' | 'checkbox' | 'templateRef' | 'radio';
