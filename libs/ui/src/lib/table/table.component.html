@@ -1,122 +1,157 @@
 <div class="container-table">
-
-  <button mat-button [matMenuTriggerFor]="showColumns" >Columnas</button>
+  <button mat-button [matMenuTriggerFor]="showColumns">Columnas</button>
 
   <cdk-table [dataSource]="dataSource">
+    <!-- action columns -->
 
-  <!-- action columns -->
-  <ng-container [sticky]="true" [cdkColumnDef]="'actions'">
-    <cdk-header-cell  *cdkHeaderCellDef> </cdk-header-cell>
-    <cdk-cell class="flex justify-center items-center" *cdkCellDef="let row">
-      <button
-       *ngIf="
-       (_selections.isSelected(row) && hideActionsOfUnselectedElement)
-       ||(!_selections.hasValue() || isMultipleSelection )
-       || (hideActionsOfUnselectedElement === false )"
-      mat-icon-button [matMenuTriggerFor]="menu" [matMenuTriggerData]="{row}" aria-label="action">
-        <mat-icon>more_vert</mat-icon>
-      </button>
-    </cdk-cell>
-  </ng-container>
+    <ng-container [sticky]="true" [cdkColumnDef]="'actions'">
+      <cdk-header-cell *cdkHeaderCellDef> </cdk-header-cell>
+      <cdk-cell class="flex justify-center items-center" *cdkCellDef="let row">
+        <button
+          *ngIf="
+            (_selections.isSelected(row) && hideActionsOfUnselectedElement) ||
+            !_selections.hasValue() ||
+            isMultipleSelection ||
+            hideActionsOfUnselectedElement === false
+          "
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          [matMenuTriggerData]="{row}"
+          aria-label="action"
+        >
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </cdk-cell>
+    </ng-container>
 
-  <!-- Columns -->
-  <ng-container *ngFor="let item of displayedColumns; let i= index" >
-    <ng-container [sticky]="configTableExample[i].sticky" [cdkColumnDef]="item">
-      <!-- obtener el header de la columna desde configTableExample -->
-      <cdk-header-cell
-        [ngStyle]="{
-          'min-width': configTableExample[i].width,
-          'display' : configTableExample[i].isHidden ? 'none' : 'table-cell'
-      }"
-        *cdkHeaderCellDef>
-        <span class="column-content">
-          {{configTableExample[i].header}} - {{configTableExample[i].isHidden}}
-        </span>
-      </cdk-header-cell>
-
-      <!-- obtener el tipo de dato de la columna desde configTableExample -->
-      <ng-container *ngIf="configTableExample[i].type === 'date'" >
-        <cdk-cell [ngStyle]="{'min-width': configTableExample[i].width }"
-          (click)="configTableExample[i].cell?.(element)"
-          *cdkCellDef="let element">
-          <span class="column-content"> {{element[item] | date: configTableExample[i].formatDate }} </span> </cdk-cell>
-      </ng-container>
-
-      <ng-container *ngIf="configTableExample[i].type === 'number'" >
-        <cdk-cell [ngStyle]="{'min-width': configTableExample[i].width }"
-        class=" text-gray-800 flex items-center" *cdkCellDef="let element">
-        <span class="column-content">
-          {{element[item] | currency: 'CLP': '' }}
-        </span>
-        </cdk-cell>
-      </ng-container>
-
-      <ng-container *ngIf="configTableExample[i].type === 'currency'" >
-        <cdk-cell [ngStyle]="{'min-width': configTableExample[i].width }"
-        class="text-gray-800 flex items-center"  *cdkCellDef="let element">
-         <span class="column-content">
-           {{element[item] | currency: 'CLP': '' }}
-         </span>
-       </cdk-cell>
-      </ng-container>
-
-      <ng-container *ngIf="configTableExample[i].type === 'text'" >
-        <cdk-cell [ngStyle]="{'min-width': configTableExample[i].width }" class="flex items-center justify-end" *cdkCellDef="let element">
+    <!-- Columns -->
+    <ng-container *ngFor="let item of displayedColumns; let i = index">
+      <ng-container
+        [sticky]="configTableExample[i].sticky"
+        [cdkColumnDef]="item"
+      >
+        <!-- obtener el header de la columna desde configTableExample -->
+        <cdk-header-cell
+          [ngStyle]="{
+            'min-width': configTableExample[i].width
+          }"
+          [ngClass]="{ hiddenColumn: configTableExample[i].isHidden }"
+          *cdkHeaderCellDef
+        >
           <span class="column-content">
-            {{element[item]}}
+            {{ configTableExample[i].header }} -
+            {{ configTableExample[i].isHidden }}
           </span>
-        </cdk-cell>
+        </cdk-header-cell>
+
+        <!-- obtener el tipo de dato de la columna desde configTableExample -->
+        <ng-container *ngIf="configTableExample[i].type === 'date'">
+          <cdk-cell
+            [ngStyle]="{
+              'min-width': configTableExample[i].width
+            }"
+            [ngClass]="{ hiddenColumn: configTableExample[i].isHidden }"
+            (click)="configTableExample[i].cell?.(element)"
+            *cdkCellDef="let element"
+          >
+            <span class="column-content">
+              {{ element[item] | date : configTableExample[i].formatDate }}
+            </span>
+          </cdk-cell>
+        </ng-container>
+
+        <ng-container *ngIf="configTableExample[i].type === 'number'">
+          <cdk-cell
+            [ngStyle]="{
+              'min-width': configTableExample[i].width,
+            }"
+            [ngClass]="{ hiddenColumn: configTableExample[i].isHidden }"
+            class="text-gray-800 flex items-center"
+            *cdkCellDef="let element"
+          >
+            <span class="column-content">
+              {{ element[item] | currency : 'CLP' : '' }}
+            </span>
+          </cdk-cell>
+        </ng-container>
+
+        <ng-container *ngIf="configTableExample[i].type === 'currency'">
+          <cdk-cell
+            [ngStyle]="{
+              'min-width': configTableExample[i].width,
+            }"
+            [ngClass]="{ hiddenColumn: configTableExample[i].isHidden }"
+            class="text-gray-800 flex items-center"
+            *cdkCellDef="let element"
+          >
+            <span class="column-content">
+              {{ element[item] | currency : 'CLP' : '' }}
+            </span>
+          </cdk-cell>
+        </ng-container>
+
+        <ng-container *ngIf="configTableExample[i].type === 'text'">
+          <cdk-cell
+            [ngStyle]="{
+              'min-width': configTableExample[i].width,
+            }"
+            [ngClass]="{ hiddenColumn: configTableExample[i].isHidden }"
+            class="flex items-center justify-end"
+            *cdkCellDef="let element"
+          >
+            <span class="column-content">
+              {{ element[item] }}
+            </span>
+          </cdk-cell>
+        </ng-container>
       </ng-container>
     </ng-container>
-  </ng-container>
 
+    <!-- checkbox column -->
+    <ng-container [cdkColumnDef]="'checkbox'">
+      <cdk-header-cell *cdkHeaderCellDef></cdk-header-cell>
+      <cdk-cell *cdkCellDef="let row">
+        <mat-checkbox
+          [disabled]="
+            !isMultipleSelection &&
+            _selections.hasValue() &&
+            !_selections.isSelected(row)
+          "
+          [checked]="_selections.isSelected(row)"
+          (change)="selectRow(row)"
+        ></mat-checkbox>
+      </cdk-cell>
+    </ng-container>
 
-  <!-- radio columns -->
-  <ng-container [cdkColumnDef]="'checkbox'">
-    <cdk-header-cell *cdkHeaderCellDef></cdk-header-cell>
-    <cdk-cell *cdkCellDef="let row">
-      <mat-checkbox
-      [disabled]="!isMultipleSelection && _selections.hasValue() && !_selections.isSelected(row)"
-      [checked]="_selections.isSelected(row)" (change)="selectRow(row)"></mat-checkbox>
-    </cdk-cell>
-  </ng-container>
-
-
-  <!-- radio columns -->
-  <ng-container [cdkColumnDef]="'radio'">
-    <!-- <cdk-header-cell *cdkHeaderCellDef> Acciones </cdk-header-cell> -->
-    <cdk-cell *cdkCellDef="let row">
-        <input type="radio" [value]="row" name="selectRow" (change)="selectRow(row)">
-    </cdk-cell>
-  </ng-container>
-
-  <!-- checkbox column -->
-
-  <cdk-header-row *cdkHeaderRowDef="allColumns; sticky:true "></cdk-header-row>
-  <cdk-row *cdkRowDef="let row; columns: allColumns;"></cdk-row>
+    <cdk-header-row
+      *cdkHeaderRowDef="allColumns; sticky: true"
+    ></cdk-header-row>
+    <cdk-row *cdkRowDef="let row; columns: allColumns"></cdk-row>
   </cdk-table>
 </div>
 
-
 <mat-menu #showColumns="matMenu">
   <ng-template matMenuContent let-row="row">
-    <mat-checkbox *ngFor="let item of displayedColumnsHeader"
-      [checked]="_selectionsColumnsDisplayed.isSelected(item.columnDef)"
-      (change)="handleShowColumnClick(item.columnDef)"> {{item.header}} </mat-checkbox>
+    <div class="flex flex-col">
+      <mat-checkbox
+        *ngFor="let item of displayedColumnsHeader"
+        [checked]="_selectionsColumnsDisplayed.isSelected(item.columnDef)"
+        (change)="handleShowColumnClick(item.columnDef)"
+      >
+        {{ item.header }}
+      </mat-checkbox>
+    </div>
   </ng-template>
-
 </mat-menu>
 
-
-
 <mat-menu #menu="matMenu">
-
   <ng-template matMenuContent let-row="row">
-    <button *ngFor="let item of actionsExample"
-    (click)="handleActionClick(item, row)"
-    mat-menu-item >
-    {{item | titlecase }}
+    <button
+      *ngFor="let item of actionsExample"
+      (click)="handleActionClick(item, row)"
+      mat-menu-item
+    >
+      {{ item | titlecase }}
     </button>
   </ng-template>
-
 </mat-menu>

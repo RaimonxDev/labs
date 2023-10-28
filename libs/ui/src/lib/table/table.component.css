@@ -65,4 +65,6 @@ span.column-content {
   text-overflow: ellipsis;
 }
 
-
+cdk-cell.hiddenColumn, cdk-header-cell.hiddenColumn, cdk-footer-cell.hiddenColumn{
+  display: none!important;
+}

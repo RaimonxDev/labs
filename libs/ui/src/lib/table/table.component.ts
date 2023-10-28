@@ -9,7 +9,7 @@ const configTable: TableConfig[] = [
     header: 'id atencion',
     type: 'number',
     width: '200px',
-    sticky: true,
+    sticky: false,
     cell: (element: any) => `${element.header}`,
   },
   {
@@ -25,7 +25,7 @@ const configTable: TableConfig[] = [
     type: 'date',
     formatDate: 'shortDate',
     width: '150px',
-    sticky: true,
+    sticky: false,
     cell: (element: any) => console.log(element, 'element'),
   },
   {
@@ -138,10 +138,6 @@ export class TableComponent implements OnInit {
     }
     if (this.enableCheckBox) {
       _columns = [..._columns, 'checkbox']
-
-      // if (this.isMultipleSelection) {
-      //   _columns = [..._columns, 'select']
-      // }
     }
     return [..._columns, ...this.displayedColumns,]
   }
@@ -153,8 +149,6 @@ export class TableComponent implements OnInit {
 
   handleShowColumnClick(column: string) {
     this._selectionsColumnsDisplayed.toggle(column);
-    console.log(this._selectionsColumnsDisplayed.selected, 'this._selectionsColumnsDisplayed.selected')
-    console.log(column, 'column')
   }
 
   selectRow(row: any) {
