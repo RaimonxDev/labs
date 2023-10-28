@@ -1,7 +1,12 @@
-<div  class="container-table">
+<div class="container-table">
   <button mat-button [matMenuTriggerFor]="showColumns">Columnas</button>
 
-  <cdk-table [dataSource]="dataSource" recycleRows >
+  <mat-form-field appearance="outline">
+    <input [formControl]="inputSearch"  matInput placeholder="Buscar"  >
+  </mat-form-field>
+
+
+  <cdk-table matSort (matSortChange)="sortData($event)" [dataSource]="dataSource" recycleRows >
     <!-- action columns -->
 
     <ng-container [sticky]="true" [cdkColumnDef]="'actions'">
@@ -32,6 +37,7 @@
       >
         <!-- obtener el header de la columna desde configTableExample -->
         <cdk-header-cell
+          [mat-sort-header]="item.columnDef"
           [ngStyle]="{
             'min-width': item.width
           }"
@@ -51,7 +57,7 @@
             (click)="item.cell?.(element)"
             *cdkCellDef="let element"
           >
-            <span class="column-content">
+            <span class="column-content ">
               {{ element[item.columnDef] | date : item.formatDate }}
             </span>
           </cdk-cell>

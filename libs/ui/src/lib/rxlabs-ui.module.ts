@@ -7,6 +7,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   imports: [
@@ -14,9 +18,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     CdkTableModule,
     MatMenuModule,
     MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
     MatButtonModule,
     MatCheckboxModule,
-    MatTooltipModule
+    MatTooltipModule,
+    ReactiveFormsModule,
+    MatSortModule
   ],
   declarations: [TableComponent],
   exports: [TableComponent],

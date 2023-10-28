@@ -64,6 +64,7 @@ span.column-content {
   overflow: hidden;
   text-overflow: ellipsis;
   width: 100%;
+  margin-right: 0.5rem;
 }
 
 cdk-cell.hiddenColumn, cdk-header-cell.hiddenColumn, cdk-footer-cell.hiddenColumn{
