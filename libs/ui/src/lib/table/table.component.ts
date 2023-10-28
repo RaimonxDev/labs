@@ -8,7 +8,7 @@ const configTable: TableConfig[] = [
     columnDef: 'id',
     header: 'id atencion',
     type: 'number',
-    width: '200px',
+    width: '100px',
     sticky: false,
     cell: (element: any) => `${element.header}`,
   },
@@ -77,11 +77,17 @@ export class TableComponent implements OnInit {
 
   dataSource = new ExampleDataSource();
   configTableExample = configTable;
-  displayedColumns = this.configTableExample.map((c) => c.columnDef);
-  displayedColumnsHeader = this.configTableExample.map((c) => {
-    return { header: c.header, columnDef: c.columnDef }
-  });
+  displayedColumns: { columnDef: string, header: string }[] = [];
+  /**
+   * @description Lista de columnas que se pueden mostrar o ocultar
+  */
+  columnsToDisplay: { columnDef: string, header: string }[] = [];
+
+  columnConfig: TableConfig[] = []
   actionsExample = ['edit', 'delete'];
+  private _hasActions = false;
+  private _hasCheckbox = false;
+  // Obtendra todas las columnas que se mostraran en la tabla
   allColumns: string[] = [];
 
   @Output() actionClicked: EventEmitter<{ action: string, row: any }> = new EventEmitter();
@@ -102,7 +108,7 @@ export class TableComponent implements OnInit {
 
   _selections = new SelectionModel<any>(this.isMultipleSelection, []);
 
-  _selectionsColumnsDisplayed = new SelectionModel<any>(true, this.displayedColumnsHeader.map((c) => c.columnDef));
+  _selectionsColumnsDisplayed = new SelectionModel<any>(true, []);
 
   /**
    * @description Define si los botones de acciones se ocultan cuando no se selecciona una fila
@@ -112,38 +118,55 @@ export class TableComponent implements OnInit {
   data = dataExample;
 
   ngOnInit(): void {
-    this.allColumns = this.concatColumns();
+    this.allColumns = this.prepareColumns();
+    this.getOptionsDisplayColumns();
 
+    this.columnConfig = this.displayedColumns.map((c) => {
+      return this.configTableExample.find((col) => col.columnDef === c.columnDef);
+    }).filter((c) => c) as TableConfig[];
 
     // agregar en configTableExample la propiedad isHidden para ocultar columnas segund lo que el usuario seleccione
     this._selectionsColumnsDisplayed.changed.subscribe((value) => {
-      this.configTableExample = this.configTableExample.map((column) => {
-        if (value.added.includes(column.columnDef)) {
-          return { ...column, isHidden: false }
-        }
-        if (value.removed.includes(column.columnDef)) {
-          return { ...column, isHidden: true }
-        }
-        return column
-      });
-
+      let cols: string[] = []
+      if (this._hasActions) {
+        cols = [...cols, 'actions'];
+      }
+      if (this._hasCheckbox) {
+        cols = [...cols, 'checkbox'];
+      }
+      this.allColumns = [...cols, ...this.filteringDisplayedColumns(value.source.selected)];
 
     });
   }
 
-  concatColumns() {
-    let _columns: string[] = []
-    if (this.actionsExample.length > 0) {
-      _columns = [..._columns, 'actions']
-    }
+  prepareColumns() {
+    this.displayedColumns = this.configTableExample.map((c) => {
+      return { header: c.header, columnDef: c.columnDef }
+    });
+
     if (this.enableCheckBox) {
-      _columns = [..._columns, 'checkbox']
+      this._hasCheckbox = true;
+      this.displayedColumns = [{ header: 'Seleccionar', columnDef: 'checkbox' }, ...this.displayedColumns]
     }
-    return [..._columns, ...this.displayedColumns,]
+
+    if (this.actionsExample.length > 0) {
+      this._hasActions = true;
+      this.displayedColumns = [{ header: 'Acciones', columnDef: 'actions' }, ...this.displayedColumns]
+    }
+    const columns = this.displayedColumns.map((c) => c.columnDef);
+
+    // retorna un array con los nombres de las columnas
+    return columns;
   }
 
+  getOptionsDisplayColumns() {
+    this.columnsToDisplay =
+      [...this.displayedColumns].filter((c) => c.columnDef !== 'actions' && c.columnDef !== 'checkbox');
+    this._selectionsColumnsDisplayed.select(...this.columnsToDisplay.map((c) => c.columnDef), { emitEvent: false });
+  }
+
+
   handleActionClick(action: string, row: any) {
-    console.log(action, row, 'action')
     this.actionClicked.emit({ action, row });
   }
 
@@ -151,6 +174,18 @@ export class TableComponent implements OnInit {
     this._selectionsColumnsDisplayed.toggle(column);
   }
 
+  /**
+   * @description Filtra las columnas que se mostraran en la tabla
+   * @param columns
+  */
+  filteringDisplayedColumns(columns: string[]) {
+    return this.configTableExample.filter((c) => columns.includes(c.columnDef)).map((c) => c.columnDef);
+  }
+
+  /**
+   * @description Seleciona una fila de la table y emite el evento rowSelected
+   * @param row
+   */
   selectRow(row: any) {
     if (this.isMultipleSelection) {
       this._selections.toggle(row);
@@ -164,7 +199,6 @@ export class TableComponent implements OnInit {
       }
     }
     this.rowsSelecteds.emit(this._selections.selected);
-    console.log(this._selections.selected, 'this._selections.selected');
   }
 }
 
