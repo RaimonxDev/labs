@@ -6,7 +6,7 @@
   </mat-form-field>
 
 
-  <cdk-table matSort (matSortChange)="sortData($event)" [dataSource]="dataSource" recycleRows >
+  <cdk-table matSort [dataSource]="_dataSource" recycleRows >
     <!-- action columns -->
 
     <ng-container [sticky]="true" [cdkColumnDef]="'actions'">
@@ -128,6 +128,10 @@
     ></cdk-header-row>
     <cdk-row *cdkRowDef="let row; columns: allColumns"></cdk-row>
   </cdk-table>
+
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 20, 50, 100]"
+    ></mat-paginator>
 </div>
 
 <mat-menu #showColumns="matMenu">
@@ -147,7 +151,7 @@
 <mat-menu #menu="matMenu">
   <ng-template matMenuContent let-row="row">
     <button
-      *ngFor="let item of actionsExample"
+      *ngFor="let item of actions"
       (click)="handleActionClick(item, row)"
       mat-menu-item
     >

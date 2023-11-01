@@ -1,135 +1,116 @@
-import { DataSource, SelectionModel } from '@angular/cdk/collections';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, debounce, debounceTime, takeUntil } from 'rxjs';
+import {
+  SelectionModel
+} from '@angular/cdk/collections';
+import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { TableConfig } from './table.model';
 import { FormControl } from '@angular/forms';
-
-const configTable: TableConfig[] = [
-  {
-    columnDef: 'id',
-    header: 'id atencion',
-    type: 'number',
-    width: '150px',
-    sticky: false,
-    cell: (element: any) => `${element.header}`,
-  },
-  {
-    columnDef: 'name',
-    header: 'Name',
-    type: 'text',
-    width: '100px',
-    cell: (element: any) => `${element.header}`,
-  },
-  {
-    columnDef: 'fecha',
-    header: 'Fecha de Inicio',
-    type: 'date',
-    formatDate: 'shortDate',
-    width: '150px',
-    sticky: false,
-    cell: (element: any) => console.log(element, 'element'),
-  },
-  {
-    columnDef: 'paciente',
-    header: 'Paciente',
-    type: 'number',
-    width: '200px',
-    cell: (element: any) => `${element.header}`,
-  },
-  {
-    columnDef: 'apePaciente',
-    header: 'Apellido Paciente',
-    type: 'text',
-    width: '200px',
-    cell: (element: any) => `${element.header}`,
-  },
-  {
-    columnDef: 'edad',
-    header: 'Edad',
-    type: 'date',
-    formatDate: 'shortDate',
-    width: '200px',
-    cell: (element: any) => console.log(element, 'element'),
-  }
-]
-
-
-
-const dataExample =
-  [
-    { id: 1, name: 'Ramon', fecha: new Date(), paciente: 1, apePaciente: 'Perez', edad: 20 },
-    { id: 2, name: 'Meilyn', fecha: new Date() },
-    { id: 3, name: 'Rodrigo', fecha: new Date() },
-    { id: 5, name: 'Fanny', fecha: new Date() },
-    { id: 6, name: 'Robert', fecha: new Date() },
-    { id: 7, name: 'Nora', fecha: new Date() },
-    { id: 8, name: 'Jose', fecha: new Date() },
-  ]
-
-
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 @Component({
   selector: 'rx-labs-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css'],
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  enableCheckBox = true;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
-  dataSource = new ExampleDataSource();
-  configTableExample = configTable;
-  displayedColumns: { columnDef: string, header: string }[] = [];
+  _configTable: TableConfig[] = [];
+  @Input()
+  set configTable(value: TableConfig[]) {
+    if (!value) {
+      throw new Error('configTable is required');
+    }
+    this._configTable = value;
+  }
+  get configTable(): TableConfig[] { return this._configTable; }
+
+
+  protected _dataSource!: MatTableDataSource<any>
+  @Input()
+  set dataTable(value: any[]) { this._dataSource = new MatTableDataSource(value); }
+  get dataTableValue(): any[] { return this._dataSource.data; }
+
+  _actions: string[] = [];
+  @Input()
+  set actions(value: string[]) { this.actions = value; }
+  get actions(): string[] { return this._actions; }
+
+  _enableCheckBox = false;
+  @Input()
+  set enableCheckBox(value: boolean) { this._enableCheckBox = value; }
+  get enableCheckBox(): boolean { return this._enableCheckBox; }
+
   /**
-   * @description Lista de columnas que se pueden mostrar o ocultar
+  * @description Define si la tabla permite seleccionar multiples filas
   */
-  columnsToDisplay: { columnDef: string, header: string }[] = [];
-
-  columnConfig: TableConfig[] = []
-  actionsExample = ['edit', 'delete'];
-  private _hasActions = false;
-  private _hasCheckbox = false;
-  // Obtendra todas las columnas que se mostraran en la tabla
-  allColumns: string[] = [];
-
-  @Output() actionClicked: EventEmitter<{ action: string, row: any }> = new EventEmitter();
-
-  @Output() rowSelected: EventEmitter<any> = new EventEmitter();
-
-  @Output() rowsSelecteds = new EventEmitter<any[]>();
-
-  /**
-   * @description Define si la tabla permite seleccionar multiples filas
-   */
   _isMultipleSelection = true;
   @Input()
-  set isMultipleSelection(value: boolean) {
-    this._isMultipleSelection = value;
-  }
+  set isMultipleSelection(value: boolean) { this._isMultipleSelection = value; }
   get isMultipleSelection(): boolean { return this._isMultipleSelection; }
-
-  _selections = new SelectionModel<any>(this.isMultipleSelection, []);
-
-  _selectionsColumnsDisplayed = new SelectionModel<any>(true, []);
 
   /**
    * @description Define si los botones de acciones se ocultan cuando no se selecciona una fila
    */
-  hideActionsOfUnselectedElement = false;
+  _hideActionsOfUnselectedElement = false;
+  @Input()
+  set hideActionsOfUnselectedElement(value: boolean) { this._hideActionsOfUnselectedElement = value; }
+  get hideActionsOfUnselectedElement(): boolean { return this._hideActionsOfUnselectedElement; }
 
-  data = dataExample;
+
+  displayedColumns: { columnDef: string, header: string }[] = [];
+  /**
+   * @description Lista de columnas que se pueden mostrar o ocultar se mostrara en el select de las columnas
+   * @member columnsToDisplay
+  */
+  columnsToDisplay: { columnDef: string, header: string }[] = [];
+
+  /**
+   * @description Configuracion de las columnas que se mostraran en la tabla
+   * @member columnConfig
+  */
+  columnConfig: TableConfig[] = []
+
+  // Obtendra todas las columnas que se mostraran en la tabla
+  allColumns: string[] = [];
+
+  @Output()
+  actionClicked: EventEmitter<{ action: string, row: any }> = new EventEmitter();
+
+  @Output()
+  rowSelected: EventEmitter<any> = new EventEmitter();
+
+  @Output()
+  rowsSelecteds = new EventEmitter<any[]>();
+
+  /**
+   * @Members Helpers
+   */
+  private _hasActions = false;
+  private _hasCheckbox = false;
+
+  /**
+   * @Members Selections
+   */
+  _selections = new SelectionModel<any>(this.isMultipleSelection, []);
+  _selectionsColumnsDisplayed = new SelectionModel<any>(true, []);
+
   inputSearch = new FormControl('');
 
-  destroy$ = new Subject<void>();
+  private destroy$ = new Subject<void>();
 
   ngOnInit(): void {
     this.allColumns = this.prepareColumns();
     this.getOptionsDisplayColumns();
 
     this.columnConfig = this.displayedColumns.map((c) => {
-      return this.configTableExample.find((col) => col.columnDef === c.columnDef);
+      return this._configTable.find((col) => col.columnDef === c.columnDef);
     }).filter((c) => c) as TableConfig[];
 
-    // agregar en configTableExample la propiedad isHidden para ocultar columnas segund lo que el usuario seleccione
+
     this._selectionsColumnsDisplayed.changed.pipe(
       takeUntil(this.destroy$)
     ).subscribe((value) => {
@@ -145,22 +126,27 @@ export class TableComponent implements OnInit {
 
     this.inputSearch.valueChanges.pipe(
       takeUntil(this.destroy$)).subscribe((value) => {
-        this.dataSource.filterData(value as string);
+        this._dataSource.filter = (value as string).trim().toLowerCase();
       });
 
   }
 
+  ngAfterViewInit() {
+    this._dataSource.paginator = this.paginator;
+    this._dataSource.sort = this.sort;
+  }
+
   prepareColumns() {
-    this.displayedColumns = this.configTableExample.map((c) => {
+    this.displayedColumns = this._configTable.map((c) => {
       return { header: c.header, columnDef: c.columnDef }
     });
 
-    if (this.enableCheckBox) {
+    if (this._enableCheckBox) {
       this._hasCheckbox = true;
       this.displayedColumns = [{ header: 'Seleccionar', columnDef: 'checkbox' }, ...this.displayedColumns]
     }
 
-    if (this.actionsExample.length > 0) {
+    if (this.actions.length > 0) {
       this._hasActions = true;
       this.displayedColumns = [{ header: 'Acciones', columnDef: 'actions' }, ...this.displayedColumns]
     }
@@ -190,7 +176,7 @@ export class TableComponent implements OnInit {
    * @param columns
   */
   filteringDisplayedColumns(columns: string[]) {
-    return this.configTableExample.filter((c) => columns.includes(c.columnDef)).map((c) => c.columnDef);
+    return this._configTable.filter((c) => columns.includes(c.columnDef)).map((c) => c.columnDef);
   }
 
   /**
@@ -212,79 +198,9 @@ export class TableComponent implements OnInit {
     this.rowsSelecteds.emit(this._selections.selected);
   }
 
-  sortData(sort: any) {
-    const columnTypeMap = new Map(this.configTableExample.map(col => [col.columnDef, col.type]));
-
-    const data = this.dataSource.data.getValue().slice();
-    if (!sort.active || sort.direction === '') {
-      this.dataSource.updateData(data);
-      return;
-    }
-
-    const columnType = columnTypeMap.get(sort.active);
-
-    this.dataSource.updateData(data.sort((a, b) => {
-      const isAsc = sort.direction === 'asc';
-      const valA = a[sort.active];
-      const valB = b[sort.active];
-      switch (columnType) {
-        case 'number':
-          return this.compareNumber(valA, valB, isAsc);
-        case 'text':
-          return this.compareText(valA, valB, isAsc);
-        case 'date':
-          return this.compareDate(valA, valB, isAsc);
-        default:
-          return 0;
-      }
-    }));
-  }
-
-  private compareNumber(a: number, b: number, isAsc: boolean) {
-    return (a - b) * (isAsc ? 1 : -1);
-  }
-
-  private compareText(a: string, b: string, isAsc: boolean) {
-    return a.localeCompare(b) * (isAsc ? 1 : -1);
-  }
-
-  private compareDate(a: Date, b: Date, isAsc: boolean) {
-    return (a.getTime() - b.getTime()) * (isAsc ? 1 : -1);
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
 
-export class ExampleDataSource extends DataSource<any> {
-  /** Stream of data that is provided to the table. */
-  // data = new BehaviorSubject<PeriodicElement[]>(ELEMENT_DATA);
-  data = new BehaviorSubject<any[]>(dataExample);
-  originalData = this.data.getValue();
-  filteredData: any[] = [];
-
-  /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<any[]> {
-    return this.data;
-  }
-
-  disconnect() { }
-
-  filterData(filterValue: string) {
-    const lowerCaseFilterValue = filterValue.trim().toLowerCase();
-    if (lowerCaseFilterValue === '') {
-      this.data.next(this.originalData);
-      return;
-    }
-    const filteredData = this.originalData.filter(row => {
-      return Object.values(row).some((value: any) => {
-        return value.toString().toLowerCase().includes(lowerCaseFilterValue);
-      });
-    });
-    this.data.next(filteredData);
-  }
-
-  updateData(data: any[]) {
-    this.data.next(data);
-  }
-
-
-
-}

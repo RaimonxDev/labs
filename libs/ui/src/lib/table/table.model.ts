@@ -5,9 +5,6 @@ export interface TableConfig {
   type: ColumnType;
   currencyCode?: string;
   formatDate?: string;
-  isSortable?: boolean;
-  isFilterable?: boolean;
-  isEditable?: boolean;
   isHidden?: boolean;
   isDisabled?: boolean;
   width?: string;
