@@ -3,7 +3,7 @@
   max-width: 1280px
 }
 cdk-table {
-  display: table;
+  /* display: table; */
 }
 
 cdk-row, cdk-header-row, cdk-footer-row {
@@ -15,12 +15,11 @@ cdk-row, cdk-header-row, cdk-footer-row {
 }
 cdk-cell, cdk-header-cell, cdk-footer-cell {
   box-sizing: border-box;
-  display: flex;
   align-items: center;
   flex: 1;
   border-right: 1px solid rgba(0, 0, 0, .25);
   padding-left: 1.125rem;
-  padding-right: 1.125rem;
+  overflow: hidden;
   background-color: inherit;
 }
 
@@ -31,9 +30,6 @@ cdk-cell, cdk-header-cell, cdk-footer-cell {
   font-weight: bold;
   text-transform: uppercase;
   padding-left: 1.125rem;
-  padding-right: 1.125rem;
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
 }
 
 cdk-header-cell:first-child {
@@ -45,6 +41,10 @@ cdk-header-cell:last-child {
 
 cdk-cell:last-child, cdk-header-cell:last-child, cdk-footer-cell:last-child {
   border-right: none;
+}
+cdk-cell.cdk-column-actions {
+  padding-left: 0;
+  padding-right: 0;
 }
 
 cdk-row:nth-child(even) {
@@ -59,7 +59,7 @@ cdk-row:nth-child(odd) {
 }
 
 span.column-content {
-  align-items: center;
+  padding: 0.5rem 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

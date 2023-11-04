@@ -39,7 +39,8 @@
         <cdk-header-cell
           [mat-sort-header]="item.columnDef"
           [ngStyle]="{
-            'min-width': item.width
+            'min-width': item.width?.min + 'px',
+            'max-width': item.width?.max + 'px' || 'none',
           }"
           *cdkHeaderCellDef
         >
@@ -52,8 +53,9 @@
         <ng-container *ngIf="item.type === 'date'">
           <cdk-cell
             [ngStyle]="{
-              'min-width': item.width
-            }"
+            'min-width': item.width?.min + 'px',
+            'max-width': item.width?.max + 'px' || 'none',
+          }"
             (click)="item.cell?.(element)"
             *cdkCellDef="let element"
           >
@@ -65,9 +67,11 @@
 
         <ng-container *ngIf="item.type === 'number'">
           <cdk-cell
+           (click)="item.cell?.(element)"
             [ngStyle]="{
-              'min-width': item.width,
-            }"
+            'min-width': item.width?.min + 'px',
+            'max-width': item.width?.max + 'px' || 'none',
+          }"
             class="text-gray-800 flex items-center"
             *cdkCellDef="let element"
           >
@@ -79,9 +83,11 @@
 
         <ng-container *ngIf="item.type === 'currency'">
           <cdk-cell
+           (click)="item.cell?.(element)"
             [ngStyle]="{
-              'min-width': item.width,
-            }"
+            'min-width': item.width?.min + 'px',
+            'max-width': item.width?.max + 'px' || 'none',
+          }"
             class="text-gray-800 flex items-center"
             *cdkCellDef="let element"
           >
@@ -93,9 +99,11 @@
 
         <ng-container *ngIf="item.type === 'text'">
           <cdk-cell
+           (click)="item.cell?.(element)"
             [ngStyle]="{
-              'min-width': item.width,
-            }"
+            'min-width': item.width?.min + 'px',
+            'max-width': item.width?.max + 'px' || 'none',
+          }"
             class="flex items-center justify-end"
             *cdkCellDef="let element"
           >
@@ -130,6 +138,7 @@
   </cdk-table>
 
   <mat-paginator
+    [pageSize]="20"
     [pageSizeOptions]="[5, 10, 20, 50, 100]"
     ></mat-paginator>
 </div>
