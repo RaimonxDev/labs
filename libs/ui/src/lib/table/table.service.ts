@@ -25,18 +25,18 @@ export class TableService {
     return element[columnDef];
   }
 
-  findRow(filterFn: (element: any) => any) {
-    return this._dataTable.getValue().find((e: any) => filterFn(e));
+  findRow(filterFn: (element: any) => any): { index: number, element: any } {
+    const index = this._dataTable.getValue().findIndex((e: any) => filterFn(e))
+
+    return {
+      index,
+      element: this._dataTable.getValue()[index]
+    }
   }
 
-  updateRow(filterFn: (element: any) => any, data: any) {
-    const index = this._dataTable.getValue().findIndex((e: any) => filterFn(e));
-    const element = {
-      ...this._dataTable.getValue()[index],
-      ...data
-    }
-    console.log(element)
-    // this._dataTable.next(this._dataTable.getValue());
+  updateRow({ index, element }: { index: number, element: any }) {
+    this._dataTable.getValue()[index] = element;
+    this._dataTable.next(this._dataTable.getValue());
   }
 
 }

@@ -2,7 +2,7 @@ import {
   SelectionModel
 } from '@angular/cdk/collections';
 import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { Subject, finalize, last, skip, skipUntil, skipWhile, takeUntil, tap } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { TableConfig } from './table.model';
 import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
@@ -35,7 +35,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   protected _dataSource = new MatTableDataSource<any>([]);
   @Input()
   set dataTable(value: any[]) {
-    this._dataSource.data = value;
+    // this._dataSource.data = value;
     this.tableService.setDataTable(value);
   }
   get dataTableValue(): any[] { return this._dataSource.data; }
@@ -110,7 +110,14 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private destroy$ = new Subject<void>();
 
-  constructor(private tableService: TableService) { }
+  constructor(private tableService: TableService) {
+
+    this.tableService.getDataTable().pipe(
+      takeUntil(this.destroy$)).subscribe((data) => {
+        this._dataSource.data = data;
+      });
+
+  }
 
 
   ngOnInit(): void {

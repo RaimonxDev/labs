@@ -83,9 +83,6 @@ export default class TableUiComponent implements OnInit {
     this.tableService.getDataTable().subscribe((data) => {
       console.log('data', data);
     });
-
-    console.log(this.tableService.getCellValue(this.dataExample[1], 'email'));
-    // console.log('dataExample', this.dataExample);
   }
 
   changeData() {
@@ -94,10 +91,7 @@ export default class TableUiComponent implements OnInit {
 
   find() {
     console.log(this.tableService.findRow((element) => element.codigo_examen === '8618'));
-
-    this.tableService.updateRow((element) => element.codigo_examen === '8618', {
-      first_name: 'Ramon',
-    })
+    // this.tableService.updateRow()
   }
 
 }
