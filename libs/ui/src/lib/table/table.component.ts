@@ -2,18 +2,21 @@ import {
   SelectionModel
 } from '@angular/cdk/collections';
 import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, finalize, last, skip, skipUntil, skipWhile, takeUntil, tap } from 'rxjs';
 import { TableConfig } from './table.model';
 import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { TableService } from './table.service';
 @Component({
   selector: 'rx-labs-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css'],
 })
 export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
+
+  PAGE_SIZE_DEFAULT = 20;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -29,14 +32,19 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   get configTable(): TableConfig[] { return this._configTable; }
 
 
-  protected _dataSource!: MatTableDataSource<any>
+  protected _dataSource = new MatTableDataSource<any>([]);
   @Input()
-  set dataTable(value: any[]) { this._dataSource = new MatTableDataSource(value); }
+  set dataTable(value: any[]) {
+    this._dataSource.data = value;
+    this.tableService.setDataTable(value);
+  }
   get dataTableValue(): any[] { return this._dataSource.data; }
 
   _actions: string[] = [];
   @Input()
-  set actions(value: string[]) { this.actions = value; }
+  set actions(value: string[]) {
+    this._actions = value;
+  }
   get actions(): string[] { return this._actions; }
 
   _enableCheckBox = false;
@@ -102,14 +110,17 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private destroy$ = new Subject<void>();
 
+  constructor(private tableService: TableService) { }
+
+
   ngOnInit(): void {
+
     this.allColumns = this.prepareColumns();
     this.getOptionsDisplayColumns();
 
     this.columnConfig = this.displayedColumns.map((c) => {
       return this._configTable.find((col) => col.columnDef === c.columnDef);
     }).filter((c) => c) as TableConfig[];
-
 
     this._selectionsColumnsDisplayed.changed.pipe(
       takeUntil(this.destroy$)

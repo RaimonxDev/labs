@@ -7,7 +7,10 @@ export interface TableConfig {
   formatDate?: string;
   isHidden?: boolean;
   isDisabled?: boolean;
-  width?: string;
+  width?: {
+    min?: number;
+    max?: number;
+  };
   sticky?: boolean;
 }
 

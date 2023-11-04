@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RxLabsUiModule, TableConfig } from '@rx-labs-ui';
+import { MOCK_DATA } from './data.example';
+import { TableService } from 'libs/ui/src/lib/table/table.service';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-table-ui',
@@ -7,7 +10,8 @@ import { RxLabsUiModule, TableConfig } from '@rx-labs-ui';
   styleUrls: ['./table-ui.component.css'],
   standalone: true,
   imports: [
-    RxLabsUiModule
+    RxLabsUiModule,
+    MatButtonModule
   ]
 })
 export default class TableUiComponent implements OnInit {
@@ -16,65 +20,84 @@ export default class TableUiComponent implements OnInit {
       columnDef: 'id',
       header: 'id atencion',
       type: 'number',
-      width: '150px',
+      width: { min: 60, max: 120 },
       sticky: false,
-      cell: (element: any) => `${element.header}`,
+      cell: (element: any) => {
+        element.email = 'ramon@ramon.com';
+      }
     },
     {
-      columnDef: 'name',
-      header: 'Name',
+      columnDef: 'first_name',
+      header: 'Nombres',
       type: 'text',
-      width: '100px',
-      cell: (element: any) => `${element.header}`,
-    },
-    {
-      columnDef: 'fecha',
-      header: 'Fecha de Inicio',
-      type: 'date',
-      formatDate: 'shortDate',
-      width: '150px',
+      width: { min: 120 },
       sticky: false,
-      cell: (element: any) => console.log(element, 'element'),
     },
     {
-      columnDef: 'paciente',
-      header: 'Paciente',
-      type: 'number',
-      width: '200px',
-      cell: (element: any) => `${element.header}`,
-    },
-    {
-      columnDef: 'apePaciente',
-      header: 'Apellido Paciente',
+      columnDef: 'last_name',
+      header: 'Apellidos',
       type: 'text',
-      width: '200px',
-      cell: (element: any) => `${element.header}`,
+      width: { min: 120 },
+      sticky: false,
     },
     {
-      columnDef: 'edad',
-      header: 'Edad',
-      type: 'date',
+      columnDef: 'email',
+      header: 'Email',
+      type: 'text',
+      width: { min: 250 },
+    },
+    {
+      columnDef: 'birth_date',
+      header: 'Fecha de Nacimiento',
+      type: 'text',
+      width:
+        { min: 100 },
+    },
+    {
+      columnDef: 'id_atencion',
+      header: 'Id Atencion',
+      type: 'text',
       formatDate: 'shortDate',
-      width: '200px',
-      cell: (element: any) => console.log(element, 'element'),
+      width: {
+        min: 100
+      },
+    },
+    {
+      columnDef: 'codigo_examen',
+      header: 'Codigo Examen',
+      type: 'text',
+      formatDate: 'shortDate',
+      width: {
+        min: 100
+      },
     }
+
   ]
 
-  dataExample =
-    [
-      { id: 1, name: 'Ramon', fecha: new Date(), paciente: 1, apePaciente: 'Perez', edad: 20 },
-      { id: 2, name: 'Meilyn', fecha: new Date() },
-      { id: 3, name: 'Rodrigo', fecha: new Date() },
-      { id: 5, name: 'Fanny', fecha: new Date() },
-      { id: 6, name: 'Robert', fecha: new Date() },
-      { id: 7, name: 'Nora', fecha: new Date() },
-      { id: 8, name: 'Jose', fecha: new Date() },
-    ]
+  dataExample = MOCK_DATA;
 
 
-  constructor() { }
+  constructor(private tableService: TableService) { }
 
   ngOnInit() {
+    this.tableService.getDataTable().subscribe((data) => {
+      console.log('data', data);
+    });
+
+    console.log(this.tableService.getCellValue(this.dataExample[1], 'email'));
+    // console.log('dataExample', this.dataExample);
+  }
+
+  changeData() {
+    this.dataExample = [{ "id": 1, "first_name": "Analiese", "last_name": "Renbold", "email": "arenbold0@guardian.co.uk", "gender": "Female", "birth_date": "2022-08-07 06:41:22", "id_atencion": "gov.fda.Y-find", "codigo_examen": "7416" }]
+  }
+
+  find() {
+    console.log(this.tableService.findRow((element) => element.codigo_examen === '8618'));
+
+    this.tableService.updateRow((element) => element.codigo_examen === '8618', {
+      first_name: 'Ramon',
+    })
   }
 
 }
