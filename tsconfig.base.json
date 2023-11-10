@@ -11,10 +11,10 @@
     "lib": ["ES2022", "dom"],
     "baseUrl": ".",
     "paths": {
-      "@rx-labs": ["libs/state/src/index.ts"],
-      "@rx-labs-ui": ["libs/ui/src/index.ts"],
       "@fuse-core": ["src/app/@fuse/index.ts"],
       "@mock-api": ["src/app/mock-api/index.ts"],
+      "@rx-labs": ["libs/state/src/index.ts"],
+      "@rx-labs-ui": ["libs/ui/src/index.ts"]
     }
   }
 }
