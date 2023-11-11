@@ -6,13 +6,15 @@
         <!-- CONTENT GOES HERE -->
         <div class="h-400 min-h-400 max-h-400 border-2 border-dashed border-gray-300 rounded-2xl">
 
-          <button color="primary" mat-stroked-button (click)="changeState()" >change state</button>
-          <button color="accent" mat-stroked-button (click)="resetState()" >reset state 2</button>
-          <button color="warn" mat-stroked-button (click)="resetAllState()" >reset all state</button>
-
-
-
-
+          <button mat-flat-button color="primary" (click)="startRecognition()" >Start</button>
+          <button mat-flat-button color="accent"  (click)="stopRecognition()">Detener</button>
+          <mat-form-field>
+            <textarea matInput class="w-full h-400" [(ngModel)]="transcript" placeholder="Transcript"></textarea>
+          </mat-form-field>
+          <!-- <ng-container *ngIf="wordList$ | async as wordList">
+              <p *ngFor="let word of wordList">{{ word.transcript }}, confidence: {{ word.confidencePercentage }}%
+              </p>
+          </ng-container> -->
         </div>
 
     </div>
