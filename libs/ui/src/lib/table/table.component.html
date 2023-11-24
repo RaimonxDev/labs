@@ -6,12 +6,12 @@
   </mat-form-field>
 
 
-  <cdk-table matSort [dataSource]="_dataSource" recycleRows >
+  <table cdk-table matSort [dataSource]="_dataSource" recycleRows >
     <!-- action columns -->
 
     <ng-container [sticky]="true" [cdkColumnDef]="'actions'">
-      <cdk-header-cell *cdkHeaderCellDef> </cdk-header-cell>
-      <cdk-cell class="flex justify-center items-center" *cdkCellDef="let row">
+      <th cdk-header-cell *cdkHeaderCellDef> </th>
+      <td cdk-cell class="" *cdkCellDef="let row">
         <button
           *ngIf="
             (_selections.isSelected(row) && hideActionsOfUnselectedElement) ||
@@ -26,7 +26,7 @@
         >
           <mat-icon>more_vert</mat-icon>
         </button>
-      </cdk-cell>
+      </td>
     </ng-container>
 
     <!-- Columns -->
@@ -36,7 +36,7 @@
         [cdkColumnDef]="item.columnDef || ''"
       >
         <!-- obtener el header de la columna desde configTableExample -->
-        <cdk-header-cell
+        <th cdk-header-cell
           [mat-sort-header]="item.columnDef"
           [ngStyle]="{
             'min-width': item.width?.min + 'px',
@@ -47,11 +47,11 @@
           <span class="column-content">
             {{ item.header }}
           </span>
-        </cdk-header-cell>
+        </th>
 
         <!-- obtener el tipo de dato de la columna desde configTableExample -->
         <ng-container *ngIf="item.type === 'date'">
-          <cdk-cell
+          <td cdk-cell
             [ngStyle]="{
             'min-width': item.width?.min + 'px',
             'max-width': item.width?.max + 'px' || 'none',
@@ -62,63 +62,63 @@
             <span class="column-content ">
               {{ element[item.columnDef] | date : item.formatDate }}
             </span>
-          </cdk-cell>
+          </td>
         </ng-container>
 
         <ng-container *ngIf="item.type === 'number'">
-          <cdk-cell
+          <td cdk-cell
            (click)="item.cell?.(element)"
             [ngStyle]="{
             'min-width': item.width?.min + 'px',
             'max-width': item.width?.max + 'px' || 'none',
           }"
-            class="text-gray-800 flex items-center"
+            class=""
             *cdkCellDef="let element"
           >
             <span class="column-content">
               {{ element[item.columnDef] | currency : 'CLP' : '' }}
             </span>
-          </cdk-cell>
+          </td>
         </ng-container>
 
         <ng-container *ngIf="item.type === 'currency'">
-          <cdk-cell
+          <td cdk-cell
            (click)="item.cell?.(element)"
             [ngStyle]="{
             'min-width': item.width?.min + 'px',
             'max-width': item.width?.max + 'px' || 'none',
           }"
-            class="text-gray-800 flex items-center"
+            class=""
             *cdkCellDef="let element"
           >
             <span class="column-content">
               {{ element[item.columnDef] | currency : 'CLP' : '' }}
             </span>
-          </cdk-cell>
+          </td>
         </ng-container>
 
         <ng-container *ngIf="item.type === 'text'">
-          <cdk-cell
+          <td cdk-cell
            (click)="item.cell?.(element)"
             [ngStyle]="{
             'min-width': item.width?.min + 'px',
             'max-width': item.width?.max + 'px' || 'none',
           }"
-            class="flex items-center justify-end"
+            class=""
             *cdkCellDef="let element"
           >
             <span class="column-content">
               {{ element[item.columnDef] }}
             </span>
-          </cdk-cell>
+          </td>
         </ng-container>
       </ng-container>
     </ng-container>
 
     <!-- checkbox column -->
     <ng-container [cdkColumnDef]="'checkbox'">
-      <cdk-header-cell *cdkHeaderCellDef></cdk-header-cell>
-      <cdk-cell *cdkCellDef="let row">
+      <th cdk-header-cell *cdkHeaderCellDef></th>
+      <td cdk-cell *cdkCellDef="let row">
         <mat-checkbox
           [disabled]="
             !isMultipleSelection &&
@@ -128,14 +128,14 @@
           [checked]="_selections.isSelected(row)"
           (change)="selectRow(row)"
         ></mat-checkbox>
-      </cdk-cell>
+      </td>
     </ng-container>
 
-    <cdk-header-row
+    <tr cdk-header-row
       *cdkHeaderRowDef="allColumns;"
-    ></cdk-header-row>
-    <cdk-row *cdkRowDef="let row; columns: allColumns"></cdk-row>
-  </cdk-table>
+    ></tr>
+    <tr cdk-row *cdkRowDef="let row; columns: allColumns"></tr>
+  </table>
 
   <mat-paginator
     [pageSize]="20"

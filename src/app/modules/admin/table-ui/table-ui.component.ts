@@ -20,7 +20,7 @@ export default class TableUiComponent implements OnInit {
       columnDef: 'id',
       header: 'id atencion',
       type: 'number',
-      width: { min: 60, max: 120 },
+      width: { min: 150, },
       sticky: false,
       cell: (element: any) => {
         element.email = 'ramon@ramon.com';
@@ -31,7 +31,7 @@ export default class TableUiComponent implements OnInit {
       header: 'Nombres',
       type: 'text',
       width: { min: 120 },
-      sticky: false,
+      sticky: true,
     },
     {
       columnDef: 'last_name',
