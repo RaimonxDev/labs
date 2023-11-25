@@ -1,7 +1,7 @@
 import {
   SelectionModel
 } from '@angular/cdk/collections';
-import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { TableConfig } from './table.model';
 import { FormControl } from '@angular/forms';
@@ -9,14 +9,18 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { TableService } from './table.service';
+import { ColumnRefDirective } from './columnRef.directive';
 @Component({
   selector: 'rx-labs-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
 
   PAGE_SIZE_DEFAULT = 20;
+
+  @ContentChildren(ColumnRefDirective) templateRef?: QueryList<ColumnRefDirective>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -68,6 +72,11 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   set hideActionsOfUnselectedElement(value: boolean) { this._hideActionsOfUnselectedElement = value; }
   get hideActionsOfUnselectedElement(): boolean { return this._hideActionsOfUnselectedElement; }
 
+  /**
+   * @description Key para el trackBy de la tabla
+   */
+  @Input() columnTrackBy: string = '';
+
 
   displayedColumns: { columnDef: string, header: string }[] = [];
   /**
@@ -110,13 +119,12 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private destroy$ = new Subject<void>();
 
-  constructor(private tableService: TableService) {
+  constructor(private tableService: TableService<any>, private _viewContainerRef: ViewContainerRef) {
 
     this.tableService.getDataTable().pipe(
       takeUntil(this.destroy$)).subscribe((data) => {
         this._dataSource.data = data;
       });
-
   }
 
 
@@ -152,6 +160,11 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     this._dataSource.paginator = this.paginator;
     this._dataSource.sort = this.sort;
+
+    // renderizar las columnas que son templateRef
+    // this.templateRef?.forEach((item) => {
+    //   this._viewContainerRef.createEmbeddedView(item.templateRef);
+    // });
   }
 
   prepareColumns() {
@@ -177,7 +190,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   getOptionsDisplayColumns() {
     this.columnsToDisplay =
       [...this.displayedColumns].filter((c) => c.columnDef !== 'actions' && c.columnDef !== 'checkbox');
-    this._selectionsColumnsDisplayed.select(...this.columnsToDisplay.map((c) => c.columnDef), { emitEvent: false });
+    this._selectionsColumnsDisplayed.select(...this.columnsToDisplay.map((c) => c.columnDef));
   }
 
 
@@ -193,7 +206,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
    * @description Filtra las columnas que se mostraran en la tabla
    * @param columns
   */
-  filteringDisplayedColumns(columns: string[]) {
+  filteringDisplayedColumns(columns: string[]): string[] {
     return this._configTable.filter((c) => columns.includes(c.columnDef)).map((c) => c.columnDef);
   }
 
@@ -214,6 +227,12 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     }
     this.rowsSelecteds.emit(this._selections.selected);
+  }
+  trackByfn(index: number, item: any) {
+    if (item[this.columnTrackBy]) {
+      return item[this.columnTrackBy];
+    }
+    return index;
   }
 
   ngOnDestroy() {

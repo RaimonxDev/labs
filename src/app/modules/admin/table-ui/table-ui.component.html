@@ -1,12 +1,17 @@
 <section class="w-screen min-h-screen bg-white">
   <div class="w-full max-w-7xl mx-auto mt-12 px-6">
-      <button mat-button (click)="changeData()" >CHANGE DATA</button>
-      <button mat-button color="accent" (click)="find()" >BUSCAR DATA</button>
+      <!-- <button mat-button (click)="changeData()" >CHANGE DATA</button>
+      <button mat-button color="accent" (click)="find()" >BUSCAR DATA</button> -->
     <rx-labs-table
     [configTable]="configTable"
     [dataTable]="dataExample"
     [actions]="['edit', 'delete', 'view']"
+    [columnTrackBy]="'id'"
     >
+        <div appColumnRef [id]="2" >
+          <p>teste</p>
+        </div>
+
     </rx-labs-table>
   </div>
 

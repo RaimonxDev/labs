@@ -12,6 +12,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { ApplyConditionClassPipe } from './table/applyConditionClass.pipe';
+import { ColumnRefDirective } from './table/columnRef.directive';
 
 @NgModule({
   imports: [
@@ -28,7 +30,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatSortModule,
     MatPaginatorModule
   ],
-  declarations: [TableComponent],
-  exports: [TableComponent],
+  declarations: [TableComponent, ApplyConditionClassPipe, ColumnRefDirective],
+  exports: [TableComponent, ColumnRefDirective],
 })
 export class RxLabsUiModule { }

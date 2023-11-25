@@ -1,17 +1,16 @@
+<button mat-button [matMenuTriggerFor]="showColumns">Columnas</button>
+
+<mat-form-field appearance="outline">
+  <input [formControl]="inputSearch"  matInput placeholder="Buscar"  >
+</mat-form-field>
+
 <div class="container-table">
-  <button mat-button [matMenuTriggerFor]="showColumns">Columnas</button>
-
-  <mat-form-field appearance="outline">
-    <input [formControl]="inputSearch"  matInput placeholder="Buscar"  >
-  </mat-form-field>
-
-
-  <table cdk-table matSort [dataSource]="_dataSource" recycleRows >
+  <table cdk-table matSort [dataSource]="_dataSource" [trackBy]="trackByfn" >
     <!-- action columns -->
 
     <ng-container [sticky]="true" [cdkColumnDef]="'actions'">
-      <th cdk-header-cell *cdkHeaderCellDef> </th>
-      <td cdk-cell class="" *cdkCellDef="let row">
+      <th cdk-header-cell *cdkHeaderCellDef></th>
+      <td cdk-cell *cdkCellDef="let row">
         <button
           *ngIf="
             (_selections.isSelected(row) && hideActionsOfUnselectedElement) ||
@@ -30,85 +29,90 @@
     </ng-container>
 
     <!-- Columns -->
-    <ng-container *ngFor="let item of columnConfig; let i = index">
+    <ng-container *ngFor="let config of columnConfig; let i = index">
       <ng-container
-        [sticky]="item?.sticky"
-        [cdkColumnDef]="item.columnDef || ''"
+        [sticky]="config?.sticky"
+        [cdkColumnDef]="config.columnDef || ''"
       >
         <!-- obtener el header de la columna desde configTableExample -->
         <th cdk-header-cell
-          [mat-sort-header]="item.columnDef"
+          [mat-sort-header]="config.columnDef"
           [ngStyle]="{
-            'min-width': item.width?.min + 'px',
-            'max-width': item.width?.max + 'px' || 'none',
+            'min-width': config.width?.min + 'px',
+            'max-width': config.width?.max + 'px' || 'none',
           }"
+
           *cdkHeaderCellDef
         >
           <span class="column-content">
-            {{ item.header }}
+            {{ config.header }}
           </span>
         </th>
 
         <!-- obtener el tipo de dato de la columna desde configTableExample -->
-        <ng-container *ngIf="item.type === 'date'">
+        <ng-container *ngIf="config.type === 'date'">
           <td cdk-cell
+            [ngClass]="element?.classCell=== config.classCell ? element?.classCell : '' "
             [ngStyle]="{
-            'min-width': item.width?.min + 'px',
-            'max-width': item.width?.max + 'px' || 'none',
+            'min-width': config.width?.min + 'px',
+            'max-width': config.width?.max + 'px' || 'none',
           }"
-            (click)="item.cell?.(element)"
+            (click)="config.cell?.(element)"
             *cdkCellDef="let element"
           >
             <span class="column-content ">
-              {{ element[item.columnDef] | date : item.formatDate }}
+              {{ element[config.columnDef] | date : config.formatDate }}
             </span>
           </td>
         </ng-container>
 
-        <ng-container *ngIf="item.type === 'number'">
+        <ng-container *ngIf="config.type === 'number'">
           <td cdk-cell
-           (click)="item.cell?.(element)"
+            [ngClass]="element?.classCell=== config.classCell ? element?.classCell : '' "
+           (click)="config.cell?.(element)"
             [ngStyle]="{
-            'min-width': item.width?.min + 'px',
-            'max-width': item.width?.max + 'px' || 'none',
+            'min-width': config.width?.min + 'px',
+            'max-width': config.width?.max + 'px' || 'none',
           }"
             class=""
             *cdkCellDef="let element"
           >
             <span class="column-content">
-              {{ element[item.columnDef] | currency : 'CLP' : '' }}
+              {{ element[config.columnDef] | currency : 'CLP' : '' }}
             </span>
           </td>
         </ng-container>
 
-        <ng-container *ngIf="item.type === 'currency'">
+        <ng-container *ngIf="config.type === 'currency'">
           <td cdk-cell
-           (click)="item.cell?.(element)"
+             [ngClass]="element?.classCell=== config.classCell ? element?.classCell : '' "
+           (click)="config.cell?.(element)"
             [ngStyle]="{
-            'min-width': item.width?.min + 'px',
-            'max-width': item.width?.max + 'px' || 'none',
+            'min-width': config.width?.min + 'px',
+            'max-width': config.width?.max + 'px' || 'none',
           }"
             class=""
             *cdkCellDef="let element"
           >
             <span class="column-content">
-              {{ element[item.columnDef] | currency : 'CLP' : '' }}
+              {{ element[config.columnDef] | currency : 'CLP' : '' }}
             </span>
           </td>
         </ng-container>
 
-        <ng-container *ngIf="item.type === 'text'">
+        <!-- tipo texto por defecto -->
+        <ng-container *ngIf="config.type === 'text' || !config.type"  >
           <td cdk-cell
-           (click)="item.cell?.(element)"
+          [ngClass]="element?.classCell=== config.classCell ? element?.classCell : '' "
+           (click)="config.cell?.(element)"
             [ngStyle]="{
-            'min-width': item.width?.min + 'px',
-            'max-width': item.width?.max + 'px' || 'none',
-          }"
-            class=""
+            'min-width': config.width?.min + 'px',
+            'max-width': config.width?.max + 'px' || 'none',
+            }"
             *cdkCellDef="let element"
           >
             <span class="column-content">
-              {{ element[item.columnDef] }}
+              {{ element[config.columnDef] }}
             </span>
           </td>
         </ng-container>
@@ -131,7 +135,7 @@
       </td>
     </ng-container>
 
-    <tr cdk-header-row
+    <tr class="table-header" cdk-header-row
       *cdkHeaderRowDef="allColumns;"
     ></tr>
     <tr cdk-row *cdkRowDef="let row; columns: allColumns"></tr>
